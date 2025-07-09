@@ -1,56 +1,48 @@
-# 🪙 Cashback Blockchain Module – SmartPOS-X
+#  CryptoTrade — CRUD con Laravel + Transacciones de Monedas Virtuales
 
-Este módulo implementa un sistema de recompensas (cashback) basado en tecnología blockchain, permitiendo a los usuarios recibir tokens como incentivo por sus compras en el sistema POS. Brinda transparencia, descentralización y fidelización efectiva.
+Este es un proyecto Laravel que permite a múltiples usuarios registrados comprar, vender y transferir monedas virtuales entre sí.  
+Está diseñado como base para una futura integración con blockchain (Ganache/Ethereum).
+---
+## REQUISITOS PREVIOS
+Antes de clonar el proyecto asegúrate de tener instalado en tu sistema (Ubuntu/WSL/Mac):
+- PHP >= 8.1
+- Composer
+- MySQL o MariaDB
+- Laravel CLI (opcional)
+- Ganache (opcional, para blockchain)
+- Acceso a la terminal y permisos de ejecución
+---
+## INSTALACIÓN RÁPIDA
+---
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+cd TU_REPOSITORIO
+---
+### 2. Dar permisos de ejecución al script
+chmod +x setup.sh
 
 ---
-
-## 🎯 Objetivo
-
-Desarrollar un sistema de recompensas sobre Ethereum testnet mediante smart contracts en Solidity, que interactúe con el backend POS y permita visualizar saldo, historial y reglas de recompensa desde el frontend React.
-
+### 3. Ejecutar el script de instalación
+./setup.sh
+El script realiza lo siguiente:
+•	Instala las dependencias PHP con Composer
+•	Copia el archivo .env
+•	Genera la clave de Laravel
+•	Crea la base de datos local cryptotrade (si tienes acceso como root)
+•	Ejecuta las migraciones
+--
+### 4. Configurar. env
+Edita el archivo .env y coloca tu configuración de base de datos:
+env
+CopiarEditar
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=cryptotrade
+DB_USERNAME=root
+DB_PASSWORD=
 ---
-
-## 🧩 Componentes del Módulo
-
-| Componente           | Descripción |
-|----------------------|-------------|
-| `CashbackToken.sol`  | Token ERC-20 que representa las recompensas |
-| `CashbackManager.sol`| Lógica del contrato: reglas, emisión y validación |
-| `deploy.js`          | Script de despliegue (usando Hardhat o Truffle) |
-| `web3.service.js`    | Servicio React para conexión vía Web3.js o Ethers.js |
-| `CashbackUI.jsx`     | Visualización en frontend: saldo, historial, reglas |
-| `wallet-connect.js`  | Integración con MetaMask / WalletConnect |
-
----
-
-## 🔄 Flujo del Sistema
-
-1. Cliente realiza una compra en el POS.
-2. El backend envía los datos de la compra al contrato inteligente.
-3. Se calcula y emite el cashback correspondiente.
-4. El usuario recibe tokens en su wallet.
-5. El usuario puede visualizar su saldo y recompensas en la interfaz.
-
----
-
-## 📦 Stack Tecnológico
-
-| Área           | Tecnología                    |
-|----------------|-------------------------------|
-| Smart Contracts | Solidity + OpenZeppelin ERC-20 |
-| Testnet         | Ganache / Sepolia             |
-| Herramientas    | Hardhat o Truffle             |
-| Integración     | Web3.js o Ethers.js           |
-| Frontend        | React.js + MetaMask           |
-| Base de Datos   | MySQL (para logs y eventos)   |
-
----
-
-## 🧪 Ejemplo de Regla de Cashback
-
-```solidity
-if (amount >= 1000 ether) {
-    reward = amount * 5 / 100;
-} else {
-    reward = amount * 3 / 100;
-}
+### 5. Levantar el servidor y abre en el navegador
+php artisan serve
+http://localhost:8000
