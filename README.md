@@ -18,13 +18,19 @@ Antes de clonar el proyecto asegúrate de tener instalado en tu sistema (Ubuntu/
 ```bash
 git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
 cd TU_REPOSITORIO
+```
 ---
 ### 2. Dar permisos de ejecución al script
+```bash
+
 chmod +x setup.sh
+```
 
 ---
 ### 3. Ejecutar el script de instalación
+```bash
 ./setup.sh
+```
 El script realiza lo siguiente:
 •	Instala las dependencias PHP con Composer
 •	Copia el archivo .env
@@ -34,15 +40,17 @@ El script realiza lo siguiente:
 --
 ### 4. Configurar. env
 Edita el archivo .env y coloca tu configuración de base de datos:
-env
-CopiarEditar
+```bash
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=cryptotrade
 DB_USERNAME=root
 DB_PASSWORD=
+```
 ---
 ### 5. Levantar el servidor y abre en el navegador
+```bash
 php artisan serve
 http://localhost:8000
+```
