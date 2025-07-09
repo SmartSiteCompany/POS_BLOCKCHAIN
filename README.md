@@ -16,8 +16,8 @@ Antes de clonar el proyecto asegúrate de tener instalado en tu sistema (Ubuntu/
 ---
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
-cd TU_REPOSITORIO
+git clone git@github.com:SmartSiteCompany/POS_BLOCKCHAIN.git
+cd POS_BLOCKCHAIN
 ```
 ---
 ### 2. Dar permisos de ejecución al script
