@@ -27,6 +27,16 @@
                 <input type="password" name="password" class="form-control" required>
             </div>
 
+            <div class="mb-3">
+    <!-- Selección de tipo de usuario -->
+    <label for="kind">Tipo de usuario:</label>
+    <select name="kind" id="kind" class="form-control">
+        <option value="1" selected>Usuario</option> <!-- Por defecto es Usuario -->
+        <option value="2">Super Usuario</option> <!-- Super Usuario -->
+    </select>
+</div>
+
+
             <button type="submit" class="btn btn-primary">Guardar</button>
             <a href="{{ route('users.index') }}" class="btn btn-secondary ms-2">Cancelar</a>
         </form>

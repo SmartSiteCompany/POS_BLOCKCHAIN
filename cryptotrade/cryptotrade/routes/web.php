@@ -17,3 +17,5 @@ Route::post('/transactions/transfer', [TransactionController::class, 'transfer']
 
 Route::get('/transactions/buy/{id}', [TransactionController::class, 'showBuyForm'])->name('transactions.buyForm');
 Route::post('/transactions/buy/{id}', [TransactionController::class, 'buy'])->name('transactions.buy');
+
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');

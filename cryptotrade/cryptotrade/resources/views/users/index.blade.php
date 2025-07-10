@@ -22,6 +22,7 @@
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Balance</th>
@@ -31,6 +32,7 @@
             <tbody>
                 @foreach ($users as $user)
                     <tr>
+                        <td>{{ $user->id}}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>${{ number_format($user->balance, 2) }}</td>
@@ -38,6 +40,16 @@
                             <a href="{{ route('transactions.buyForm', $user->id) }}" class="btn btn-sm btn-success">
                                 Comprar monedas
                             </a>
+
+                            {{-- Mostrar el botón de eliminar solo si el usuario autenticado NO es superusuario --}}
+                            @if ($user->kind == 1)
+    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</button>
+    </form>
+@endif
+
                         </td>
                     </tr>
                 @endforeach
