@@ -28,6 +28,14 @@ class PayController extends Controller
     $userId = $request->user_id;
     $paymentMethod = $request->payment_method;
 
+    // VALIDACIÓN DE SALDO ANTES DE LA TRANSACCIÓN
+    if ($isRegistered && $paymentMethod === 'credits') {
+        $user = User::find($userId);
+        if ($user->balance < $amount) {
+            return redirect()->back()->with('error', 'Saldo insuficiente.');
+        }
+    }
+
     DB::transaction(function () use ($amount, $isRegistered, $userId, $paymentMethod) {
         $cashback = 0;
 
@@ -35,35 +43,26 @@ class PayController extends Controller
             $user = User::find($userId);
 
             if ($paymentMethod === 'credits') {
-                // Verificar saldo suficiente
-                if ($user->balance < $amount) {
-                    throw new \Exception('Saldo insuficiente.');
-                }
-                // Descontar del balance
                 $user->decrement('balance', $amount);
-                // No hay cashback para pagos con crédito
             } elseif ($paymentMethod === 'cash') {
-                // No se descuenta del balance, solo cashback para el user
                 $cashback = $amount * 0.10;
                 $user->increment('balance', $cashback);
             }
 
-            // Guardar pago con user_id
             Pay::create([
                 'amount' => $amount,
                 'user_id' => $userId,
             ]);
 
-            // Usuario master recibe el resto (pago menos cashback)
             $masterUser = User::where('kind', 2)->firstOrFail();
             $masterUser->increment('balance', $amount - $cashback);
 
         } else {
-            // Usuario no registrado, todo va al master
             Pay::create([
                 'amount' => $amount,
                 'user_id' => null,
             ]);
+
             $masterUser = User::where('kind', 2)->firstOrFail();
             $masterUser->increment('balance', $amount);
         }
@@ -71,6 +70,4 @@ class PayController extends Controller
 
     return redirect()->route('users.index')->with('success', 'Pago procesado correctamente.');
 }
-
-
 }
