@@ -18,29 +18,32 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
-        // Validación de los campos necesarios
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6', // Añadido un mínimo de caracteres para la contraseña
-            'kind' => 'nullable|integer', // Validación opcional para 'kind'
-            'status' => 'nullable|integer', // Validación opcional para 'status'
-        ]);
+    // Validación de los campos necesarios
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6',
+        'kind' => 'nullable|integer',
+        'status' => 'nullable|integer',
+    ]);
 
-        // Crear el usuario, incluyendo 'kind' y 'status' con valores por defecto
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'balance' => 0,
-            'password' => Hash::make($request->password),
-            'kind' => $request->kind ?? 1,  // Si 'kind' no se pasa, se asigna 1 (usuario normal)
-            'status' => $request->status ?? 1,  // Si 'status' no se pasa, se asigna 1 (activo)
-        ]);
-        
-
-        // Redirigir a la vista de lista de usuarios
-        return redirect()->route('users.index');
+    // Validar que no se pueda crear más de un usuario master (kind = 2)
+    if (($request->kind ?? 1) == 2 && User::where('kind', 2)->exists()) {
+        return back()->with('error', 'Ya existe un usuario master. No se puede crear otro.');
     }
+
+    // Crear el usuario
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'balance' => 0,
+        'password' => Hash::make($request->password),
+        'kind' => $request->kind ?? 1,
+        'status' => $request->status ?? 1,
+    ]);
+
+    return redirect()->route('users.index');
+}
 
     public function destroy($id) {
     $user = User::findOrFail($id); // Buscar al usuario por su ID

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\PayController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,3 +20,6 @@ Route::get('/transactions/buy/{id}', [TransactionController::class, 'showBuyForm
 Route::post('/transactions/buy/{id}', [TransactionController::class, 'buy'])->name('transactions.buy');
 
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+Route::get('/pay', [PayController::class, 'create'])->name('pay.create');
+Route::post('/pay', [PayController::class, 'store'])->name('pay.store');

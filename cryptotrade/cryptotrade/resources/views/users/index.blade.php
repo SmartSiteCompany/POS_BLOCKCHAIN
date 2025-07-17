@@ -18,6 +18,7 @@
         @endif
 
         <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
+        <a href="{{ route('pay.create') }}" class="btn btn-success mb-3">Realizar Pago</a>
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -58,5 +59,18 @@
 
         <a href="{{ route('transactions.transferForm') }}" class="btn btn-success mt-4">Transferir monedas</a>
     </div>
+
+    <script>
+    // Espera 3 segundos y luego oculta el mensaje
+    setTimeout(() => {
+        const alert = document.querySelector('.alert-success');
+        if (alert) {
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500); // elimina el elemento después de la transición
+        }
+    }, 3000);
+</script>
+
 </body>
 </html>
