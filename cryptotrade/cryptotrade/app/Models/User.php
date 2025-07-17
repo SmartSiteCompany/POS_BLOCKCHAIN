@@ -8,13 +8,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Atributos que se pueden asignar masivamente (por ejemplo, con create o fill).
      */
     protected $fillable = [
         'name',
@@ -26,9 +23,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Atributos que se deben ocultar al convertir el modelo a JSON o array.
      */
     protected $hidden = [
         'password',
@@ -36,20 +31,18 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Conversión de tipos de datos (casts) para atributos específicos.
      */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed', // Laravel 10+ encripta automáticamente con esto
         ];
     }
 
     /**
-     * Get the transactions sent by the user.
+     * Relación: transacciones enviadas por este usuario.
      */
     public function sentTransactions()
     {
@@ -57,7 +50,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the transactions received by the user.
+     * Relación: transacciones recibidas por este usuario.
      */
     public function receivedTransactions()
     {

@@ -22,6 +22,7 @@
 
         <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
         <a href="{{ route('pay.create') }}" class="btn btn-success mb-3">Realizar Pago</a>
+        <a href="{{ route('json.show') }}" class="btn btn-danger mb-3">Transacciones</a>
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -46,7 +47,7 @@
                             </a>
 
                             {{-- Mostrar el botón de eliminar solo si el usuario autenticado NO es superusuario --}}
-                            @if ($user->kind == 1)
+                            @if ($user->kind != 2)
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
