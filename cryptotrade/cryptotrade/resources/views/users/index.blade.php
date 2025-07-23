@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard de Usuarios</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
+@section('content')
 <body class="bg-light">
     <div class="container mt-5">
 
@@ -77,7 +71,4 @@
             }
         }, 3000);
     </script>
-
-</body>
-
-</html>
+@endsection
