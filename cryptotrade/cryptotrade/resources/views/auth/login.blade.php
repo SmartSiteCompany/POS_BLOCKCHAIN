@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Iniciar Sesión</h2>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+<div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+    <h3 class="text-center mb-4">Iniciar Sesión</h3>
 
     @if(session('error'))
-        <p style="color: red;">{{ session('error') }}</p>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
 
     <form method="POST" action="{{ route('login.submit') }}">
         @csrf
-        <label for="email">Correo electrónico:</label><br>
-        <input type="email" name="email" required><br><br>
 
-        <label for="password">Contraseña:</label><br>
-        <input type="password" name="password" required><br><br>
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" name="email" class="form-control" required autofocus>
+        </div>
 
-        <button type="submit">Entrar</button>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Entrar</button>
     </form>
+</div>
+
 </body>
 </html>

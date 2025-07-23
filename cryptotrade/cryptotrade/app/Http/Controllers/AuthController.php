@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Pay;
 
 class AuthController extends Controller
 {
@@ -37,9 +39,7 @@ class AuthController extends Controller
         return redirect()->route('dashboard');
     }
 
-    // Los métodos showLoginForm, login y logout que ya tienes
-
-     // Mostrar formulario de login
+    // Mostrar formulario de login
     public function showLoginForm()
     {
         return view('auth.login');
@@ -73,5 +73,18 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    // Mostrar dashboard con las transacciones del usuario
+    public function dashboard()
+    {
+        $user = Auth::user();
+
+        // Obtener transacciones del usuario
+        $transactions = Pay::where('user_id', $user->id)
+                           ->orderByDesc('created_at')
+                           ->get();
+
+        return view('dashboard', compact('user', 'transactions'));
     }
 }

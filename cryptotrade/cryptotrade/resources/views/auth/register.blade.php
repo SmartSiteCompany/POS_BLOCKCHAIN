@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Registro de Usuario</h2>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+<div class="card shadow p-4" style="width: 100%; max-width: 450px;">
+    <h3 class="text-center mb-4">Registro de Usuario</h3>
 
     @if ($errors->any())
-        <div style="color: red;">
-            <ul>
+        <div class="alert alert-danger">
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -19,21 +23,33 @@
     <form method="POST" action="{{ route('register.submit') }}">
         @csrf
 
-        <label for="name">Nombre:</label><br>
-        <input type="text" name="name" value="{{ old('name') }}" required><br><br>
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+        </div>
 
-        <label for="email">Correo electrónico:</label><br>
-        <input type="email" name="email" value="{{ old('email') }}" required><br><br>
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" name="email" value="{{ old('email') }}" class="form-control" required>
+        </div>
 
-        <label for="password">Contraseña:</label><br>
-        <input type="password" name="password" required><br><br>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
 
-        <label for="password_confirmation">Confirmar contraseña:</label><br>
-        <input type="password" name="password_confirmation" required><br><br>
+        <div class="mb-3">
+            <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
+            <input type="password" name="password_confirmation" class="form-control" required>
+        </div>
 
-        <button type="submit">Registrar</button>
+        <button type="submit" class="btn btn-success w-100">Registrarse</button>
     </form>
 
-    <p>¿Ya tienes cuenta? <a href="{{ route('login') }}">Inicia sesión aquí</a></p>
+    <p class="mt-3 text-center">
+        ¿Ya tienes cuenta? <a href="{{ route('login') }}">Inicia sesión aquí</a>
+    </p>
+</div>
+
 </body>
 </html>

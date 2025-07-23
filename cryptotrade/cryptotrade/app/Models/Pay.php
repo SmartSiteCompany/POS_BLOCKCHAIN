@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pay extends Model
 {
-    protected $fillable = ['amount', 'user_id'];
+    // Agrega 'payment_method' a los campos asignables
+    protected $fillable = ['amount', 'user_id', 'payment_method'];
 
     public function user()
     {

@@ -56,55 +56,77 @@ class JsonTransactionController extends Controller
 
 
     // Procesar las transacciones del JSON y guardarlas en BD
-    public function processJson()
-    {
-        $path = storage_path('app/transactions/pending.json');
+public function processJson()
+{
+    $path = storage_path('app/transactions/pending.json');
 
-        if (!file_exists($path)) {
-            return redirect()->route('json.show')->with('info', 'Archivo de transacciones no encontrado.');
+    if (!file_exists($path)) {
+        return redirect()->route('json.show')->with('info', 'Archivo de transacciones no encontrado.');
+    }
+
+    $json = file_get_contents($path);
+    $transactions = json_decode($json, true);
+
+    if (!is_array($transactions) || empty($transactions)) {
+        return redirect()->route('json.show')->with('info', 'No hay transacciones pendientes para procesar.');
+    }
+
+    // Buscar el usuario maestro (kind == 2)
+    $master = User::where('kind', 2)->first();
+
+    foreach ($transactions as $data) {
+        if (!isset($data['amount']) || !is_numeric($data['amount'])) {
+            continue;
         }
 
-        $json = file_get_contents($path);
-        $transactions = json_decode($json, true);
+        $amount = $data['amount'];
+        $paymentMethod = $data['payment_method'];
+        $userId = $data['user_id'] ?? null;
 
-        if (!is_array($transactions) || empty($transactions)) {
-            return redirect()->route('json.show')->with('info', 'No hay transacciones pendientes para procesar.');
-        }
+        $user = $userId ? User::find($userId) : null;
 
-        foreach ($transactions as $data) {
-            if (!isset($data['amount']) || !is_numeric($data['amount'])) {
-                continue;
-            }
+        if ($user) {
+            if ($paymentMethod === 'credits') {
+                if ($user->balance < $amount) {
+                    continue; // Saldo insuficiente
+                }
+                $user->decrement('balance', $amount);
 
-            $amount = $data['amount'];
-            $paymentMethod = $data['payment_method'];
-            $userId = $data['user_id'] ?? null;
+                // Todo el pago va al master
+                if ($master) {
+                    $master->increment('balance', $amount);
+                }
 
-            $user = $userId ? User::find($userId) : null;
+            } elseif ($paymentMethod === 'cash') {
+                $cashback = $amount * 0.10;
+                $remaining = $amount - $cashback;
 
-            if ($user) {
-                if ($paymentMethod === 'credits') {
-                    if ($user->balance < $amount) {
-                        continue; // Saldo insuficiente, se omite
-                    }
-                    $user->decrement('balance', $amount);
-                } elseif ($paymentMethod === 'cash') {
-                    $cashback = $amount * 0.10;
-                    $user->increment('balance', $cashback);
+                $user->increment('balance', $cashback);
+
+                // Resto del dinero va al master
+                if ($master) {
+                    $master->increment('balance', $remaining);
                 }
             }
-
-            Pay::create([
-                'amount' => $amount,
-                'user_id' => $userId,
-                'payment_method' => $paymentMethod,
-            ]);
+        } else {
+            // Usuario no registrado, todo va al master
+            if ($master) {
+                $master->increment('balance', $amount);
+            }
         }
 
-        // Limpiar archivo
-        file_put_contents($path, json_encode([], JSON_PRETTY_PRINT));
-
-        return redirect()->route('json.show')->with('success', 'Transacciones procesadas exitosamente.');
+        Pay::create([
+            'amount' => $amount,
+            'user_id' => $userId,
+            'payment_method' => $paymentMethod,
+        ]);
     }
+
+    // Limpiar archivo
+    file_put_contents($path, json_encode([], JSON_PRETTY_PRINT));
+
+    return redirect()->route('json.show')->with('success', 'Transacciones procesadas exitosamente.');
+}
+
 }
 

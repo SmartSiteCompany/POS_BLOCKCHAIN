@@ -5,17 +5,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\JsonTransactionController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// ✅ Esta es la ruta que carga la vista JSON
-Route::get('/json', function () {
-    return view('pay.json'); // Asegúrate de que este archivo exista en: resources/views/pay/json.blade.php
-})->name('json.view');
-
-// CRUD de usuarios
+// CRUD usuarios
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
@@ -31,35 +27,22 @@ Route::post('/transactions/buy/{id}', [TransactionController::class, 'buy'])->na
 Route::get('/pay', [PayController::class, 'create'])->name('pay.create');
 Route::post('/pay', [PayController::class, 'store'])->name('pay.store');
 
-// JSON: guardar y procesar transacciones
-
+// JSON transacciones
 Route::get('/json', [JsonTransactionController::class, 'showPendingTransactions'])->name('json.show');
 Route::post('/json/save', [JsonTransactionController::class, 'storeToJson'])->name('json.save');
 Route::post('/json/process', [JsonTransactionController::class, 'processJson'])->name('json.process');
 
-use App\Http\Controllers\AuthController;
-
+// Rutas de autenticación
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
-
-
-
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+// Rutas protegidas (requieren login)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard', ['user' => auth()->user()]);
-    })->name('dashboard');
+    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 });
 
 

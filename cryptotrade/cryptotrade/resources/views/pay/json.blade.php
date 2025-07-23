@@ -32,8 +32,8 @@
                 <div class="mb-3">
                     <label for="payment_method" class="form-label">Método de Pago:</label>
                     <select name="payment_method" id="payment_method" class="form-control" required>
-                      <option value="Efectivo">Efectivo</option>  
-                      <option value="Credito">Crédito</option>
+                      <option value="cash">Efectivo</option>  
+                      <option value="credits">Crédito</option>
                         
                     </select>
                 </div>

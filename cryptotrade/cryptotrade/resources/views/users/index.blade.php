@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
+        <a href="{{ route('register') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
         <a href="{{ route('pay.create') }}" class="btn btn-success mb-3">Realizar Pago</a>
         <a href="{{ route('json.show') }}" class="btn btn-danger mb-3">Transacciones</a>
 
