@@ -3,16 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Pay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::all();
-        return view('users.index', compact('users'));
+   public function index()
+{
+    $user = auth()->user();  // Obtener usuario autenticado
+    
+    if (!$user || $user->kind != 2) {
+        $user = Auth::user();
+
+        // Obtener transacciones del usuario
+        $transactions = Pay::where('user_id', $user->id)
+                           ->orderByDesc('created_at')
+                           ->get();
+
+        return view('dashboard', compact('user', 'transactions'));
     }
+
+    $users = User::all();
+    return view('users.index', compact('users'));
+}
+
 
     public function create()
     {

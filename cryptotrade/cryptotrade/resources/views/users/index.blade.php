@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        <a href="{{ route('register') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
+        <a href="{{ route('register') }}" class="btn btn-primary mb-3">Nuevo usuario</a>
         <a href="{{ route('json.show') }}" class="btn btn-danger mb-3">Pagos</a>
 
         <table class="table table-bordered table-striped">
@@ -55,6 +55,6 @@
 
 
     </div>
-    
+
 <script src="{{ asset('js/alerts.js') }}"></script>
 @endsection
