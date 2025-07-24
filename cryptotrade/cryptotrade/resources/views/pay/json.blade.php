@@ -7,10 +7,13 @@
     {{-- Mensajes --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow"
-                style="z-index: 1050;" role="alert" role="alert">{{ session('success') }}</div>
+                style="z-index: 1050;" role="alert">{{ session('success') }}</div>
     @elseif(session('info'))
         <div class="alert alert-info alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow"
-                style="z-index: 1050;" role="alert" role="alert">{{ session('info') }}</div>
+                style="z-index: 1050;" role="alert">{{ session('info') }}</div>
+    @elseif(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow"
+                style="z-index: 1050;" role="alert">{{ session('error') }}</div>
     @endif
 
     {{-- Formulario para guardar transacción en JSON --}}
@@ -34,7 +37,6 @@
                     <select name="payment_method" id="payment_method" class="form-control" required>
                       <option value="Efectivo">Efectivo</option>  
                       <option value="Crédito">Crédito</option>
-                        
                     </select>
                 </div>
 
@@ -49,33 +51,33 @@
         <div class="card-body">
             @if(!empty($transactions))
                 <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Monto</th>
-            <th>ID Usuario</th>
-            <th>Método de Pago</th>
-            <th>Fecha</th> {{-- Nueva columna --}}
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($transactions as $index => $transaction)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ number_format($transaction['amount'], 2) }}</td>
-                <td>{{ $transaction['user_id'] ?? 'No registrado' }}</td>
-                <td>{{ ucfirst($transaction['payment_method']) }}</td>
-                <td>
-                    @if(isset($transaction['created_at']))
-                        {{ \Carbon\Carbon::parse($transaction['created_at'])->format('d/m/Y H:i') }}
-                    @else
-                        Sin fecha
-                    @endif
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Monto</th>
+                            <th>ID Usuario</th>
+                            <th>Método de Pago</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($transactions as $index => $transaction)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ number_format($transaction['amount'], 2) }}</td>
+                                <td>{{ $transaction['user_id'] ?? 'No registrado' }}</td>
+                                <td>{{ ucfirst($transaction['payment_method']) }}</td>
+                                <td>
+                                    @if(isset($transaction['created_at']))
+                                        {{ \Carbon\Carbon::parse($transaction['created_at'])->format('d/m/Y H:i') }}
+                                    @else
+                                        Sin fecha
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             @else
                 <p class="text-muted">No hay transacciones pendientes.</p>
             @endif
@@ -87,7 +89,8 @@
         @csrf
         <button type="submit" class="btn btn-success">Procesar Transacciones</button>
     </form>
-     
- 
+
+   
+
 <script src="{{ asset('js/alerts.js') }}"></script>
 @endsection

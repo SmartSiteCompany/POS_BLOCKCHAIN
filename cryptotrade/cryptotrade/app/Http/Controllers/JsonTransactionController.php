@@ -23,36 +23,41 @@ class JsonTransactionController extends Controller
         return view('pay.json', compact('transactions'));
     }
 
-    // Guardar transacción en JSON (acumula transacciones)
     public function storeToJson(Request $request)
 {
-    $data = $request->validate([
-        'amount' => 'required|numeric',
-        'user_id' => 'nullable|exists:users,id',
+    $request->validate([
+        'amount' => 'required|numeric|min:0.01',
         'payment_method' => 'required|in:Crédito,Efectivo',
     ]);
 
-    $path = storage_path('app/transactions/pending.json');
-
-    // Cargar transacciones previas si existen
-    if (file_exists($path)) {
-        $json = file_get_contents($path);
-        $transactions = json_decode($json, true);
-        if (!is_array($transactions)) {
-            $transactions = [];
-        }
-    } else {
-        $transactions = [];
+    $userId = $request->input('user_id');
+    if ($userId !== null && !User::find($userId)) {
+        return redirect()->route('json.show')->with('error', 'El usuario con ID ' . $userId . ' no existe.');
     }
 
-    $data['created_at'] = now()->toDateTimeString();
+    $data = [
+        'amount' => $request->input('amount'),
+        'user_id' => $userId,
+        'payment_method' => $request->input('payment_method'),
+        'created_at' => now()->toDateTimeString(),
+    ];
+
+    $path = storage_path('app/transactions/pending.json');
+
+    $transactions = [];
+    if (file_exists($path)) {
+        $json = file_get_contents($path);
+        $transactions = json_decode($json, true) ?: [];
+    }
 
     $transactions[] = $data;
-
     file_put_contents($path, json_encode($transactions, JSON_PRETTY_PRINT));
 
     return redirect()->route('json.show')->with('success', 'Transacción guardada en archivo JSON.');
 }
+
+
+
 
 
     // Procesar las transacciones del JSON y guardarlas en BD

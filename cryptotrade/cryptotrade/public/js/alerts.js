@@ -1,5 +1,5 @@
 
-    ['.alert-success', '.alert-danger'].forEach(selector => {
+    ['.alert-success', '.alert-danger', '.alert-info'].forEach(selector => {
         setTimeout(() => {
             const alert = document.querySelector(selector);
             if (alert) {

@@ -59,9 +59,8 @@ class AuthController extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'El correo o la contraseña no son correctos.',
-        ]);
+        return back()->with('error', 'El correo o la contraseña no son correctos.');
+
     }
 
     // Logout (cerrar sesión)
