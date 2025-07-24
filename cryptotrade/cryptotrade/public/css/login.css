@@ -1,0 +1,81 @@
+body {
+  background-color: #040420ff;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.login-card {
+  background-color: transparent;
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.login-subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+}
+
+.form-control {
+  border-radius: 0;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.btn-login {
+  margin-top: 1rem;
+  width: 100%;
+  background-color: white;
+  color: #0052cc;
+  font-weight: bold;
+  border-radius: 0;
+  padding: 0.75rem;
+  border: none;
+}
+
+.alert-container {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: white;
+  color: #842029;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 999;
+  max-width: 300px;
+  font-weight: bold;
+}
+
+.small-text {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+.register-link {
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.register-link a {
+  color: white;
+  text-decoration: underline;
+}
+
+.register-link a:hover {
+  color: #cce0ff;
+}
