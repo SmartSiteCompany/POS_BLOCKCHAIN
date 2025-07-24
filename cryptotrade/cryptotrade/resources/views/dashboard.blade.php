@@ -9,7 +9,7 @@
 
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <a class="navbar-brand" href="#">POS Blockchain</a>
+        <a class="navbar-brand" href="users">POS Blockchain</a>
         <div class="ms-auto">
             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                 @csrf
