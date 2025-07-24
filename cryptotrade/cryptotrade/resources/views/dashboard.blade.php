@@ -32,9 +32,9 @@
             <p><strong>Correo:</strong> {{ $user->email }}</p>
             <p><strong>Tipo de usuario:</strong> 
                 @if($user->kind == 2)
-                    Cuenta maestra
+                    Administrador
                 @elseif($user->kind == 1)
-                    Usuario registrado
+                    Basico
                 @else
                     Invitado / Otro
                 @endif

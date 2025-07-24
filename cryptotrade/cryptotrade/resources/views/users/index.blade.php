@@ -15,8 +15,7 @@
         @endif
 
         <a href="{{ route('register') }}" class="btn btn-primary mb-3">Crear nuevo usuario</a>
-        <a href="{{ route('pay.create') }}" class="btn btn-success mb-3">Realizar Pago</a>
-        <a href="{{ route('json.show') }}" class="btn btn-danger mb-3">Transacciones</a>
+        <a href="{{ route('json.show') }}" class="btn btn-danger mb-3">Pagos</a>
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -36,9 +35,6 @@
                         <td>{{ $user->email }}</td>
                         <td>${{ number_format($user->balance, 2) }}</td>
                         <td>
-                            <a href="{{ route('transactions.buyForm', $user->id) }}" class="btn btn-sm btn-success">
-                                Comprar monedas
-                            </a>
 
                             {{-- Mostrar el botón de eliminar solo si el usuario autenticado NO es superusuario --}}
                             @if ($user->kind != 2)
@@ -57,18 +53,8 @@
             </tbody>
         </table>
 
-        <a href="{{ route('transactions.transferForm') }}" class="btn btn-success mt-4">Transferir monedas</a>
-    </div>
 
-    <script>
-        // Espera 3 segundos y luego oculta el mensaje
-        setTimeout(() => {
-            const alert = document.querySelector('.alert-success');
-            if (alert) {
-                alert.style.transition = 'opacity 0.5s ease';
-                alert.style.opacity = '0';
-                setTimeout(() => alert.remove(), 500); // elimina el elemento después de la transición
-            }
-        }, 3000);
-    </script>
+    </div>
+    
+<script src="{{ asset('js/alerts.js') }}"></script>
 @endsection

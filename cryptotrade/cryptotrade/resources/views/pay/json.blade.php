@@ -32,8 +32,8 @@
                 <div class="mb-3">
                     <label for="payment_method" class="form-label">Método de Pago:</label>
                     <select name="payment_method" id="payment_method" class="form-control" required>
-                      <option value="cash">Efectivo</option>  
-                      <option value="credits">Crédito</option>
+                      <option value="Efectivo">Efectivo</option>  
+                      <option value="Crédito">Crédito</option>
                         
                     </select>
                 </div>
@@ -87,15 +87,7 @@
         @csrf
         <button type="submit" class="btn btn-success">Procesar Transacciones</button>
     </form>
-</div>
-<script>
-        setTimeout(() => {
-            const alert = document.querySelector('.alert-success','alert-info');
-            if (alert) {
-                alert.style.transition = 'opacity 0.5s ease';
-                alert.style.opacity = '0';
-                setTimeout(() => alert.remove(), 500); // elimina el elemento después de la transición
-            }
-        }, 3000);
-    </script>
+     
+ 
+<script src="{{ asset('js/alerts.js') }}"></script>
 @endsection

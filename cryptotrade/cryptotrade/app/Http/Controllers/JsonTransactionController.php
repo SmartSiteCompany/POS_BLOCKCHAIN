@@ -29,7 +29,7 @@ class JsonTransactionController extends Controller
     $data = $request->validate([
         'amount' => 'required|numeric',
         'user_id' => 'nullable|exists:users,id',
-        'payment_method' => 'required|in:credits,cash',
+        'payment_method' => 'required|in:Crédito,Efectivo',
     ]);
 
     $path = storage_path('app/transactions/pending.json');
@@ -86,7 +86,7 @@ public function processJson()
         $user = $userId ? User::find($userId) : null;
 
         if ($user) {
-            if ($paymentMethod === 'credits') {
+            if ($paymentMethod === 'Crédito') {
                 if ($user->balance < $amount) {
                     continue; // Saldo insuficiente
                 }
@@ -97,7 +97,7 @@ public function processJson()
                     $master->increment('balance', $amount);
                 }
 
-            } elseif ($paymentMethod === 'cash') {
+            } elseif ($paymentMethod === 'Efectivo') {
                 $cashback = $amount * 0.10;
                 $remaining = $amount - $cashback;
 
