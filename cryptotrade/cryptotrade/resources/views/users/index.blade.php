@@ -15,7 +15,9 @@
         @endif
 
         <a href="{{ route('register') }}" class="btn btn-primary mb-3">Nuevo usuario</a>
+        <a href="{{ route('dashboard') }}" class="btn btn-success mb-3">Dashboard</a>
         <a href="{{ route('json.show') }}" class="btn btn-danger mb-3">Pagos</a>
+        
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">

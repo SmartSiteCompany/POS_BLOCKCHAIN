@@ -28,7 +28,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // encriptar
+            'password' => bcrypt($request->password),
             'kind' => 1,
             'balance' => 0,
             'status' => 1,
@@ -60,7 +60,6 @@ class AuthController extends Controller
         }
 
         return back()->with('error', 'El correo o la contraseña no son correctos.');
-
     }
 
     // Logout (cerrar sesión)
@@ -74,15 +73,20 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    // Mostrar dashboard con las transacciones del usuario
+    // Mostrar dashboard con las transacciones
     public function dashboard()
     {
         $user = Auth::user();
 
-        // Obtener transacciones del usuario
-        $transactions = Pay::where('user_id', $user->id)
-                           ->orderByDesc('created_at')
-                           ->get();
+        if ($user->kind == 2) {
+            // Administrador ve todas las transacciones
+            $transactions = Pay::orderByDesc('created_at')->get();
+        } else {
+            // Usuario normal ve solo sus transacciones
+            $transactions = Pay::where('user_id', $user->id)
+                               ->orderByDesc('created_at')
+                               ->get();
+        }
 
         return view('dashboard', compact('user', 'transactions'));
     }
