@@ -7,13 +7,28 @@
     {{-- Mensajes --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow"
-                style="z-index: 1050;" role="alert">{{ session('success') }}</div>
+                style="z-index: 1050;" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
     @elseif(session('info'))
         <div class="alert alert-info alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow"
-                style="z-index: 1050;" role="alert">{{ session('info') }}</div>
+                style="z-index: 1050;" role="alert">
+            {{ session('info') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
     @elseif(session('error'))
         <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow"
-                style="z-index: 1050;" role="alert">{{ session('error') }}</div>
+                style="z-index: 1050;" role="alert">
+            {!! session('error') !!}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    @elseif(session('warning'))
+        <div class="alert alert-warning alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow"
+                style="z-index: 1050;" role="alert">
+            {{ session('warning') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
     @endif
 
     {{-- Formulario para guardar transacción en JSON --}}
