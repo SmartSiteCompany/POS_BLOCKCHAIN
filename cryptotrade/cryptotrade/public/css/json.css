@@ -30,6 +30,19 @@ h1 {
     border-color: #b6effb;
 }
 
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+    border-color: #f5c2c7;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #664d03;
+    border-color: #ffecb5;
+}
+
+
 /* FORMULARIO */
 .card {
     border: 1px solid #dee2e6;
@@ -77,6 +90,7 @@ textarea.form-control:focus {
 }
 
 /* BOTONES */
+/* 
 .btn-primary {
     background-color: #0d6efd;
     border-color: #0d6efd;
@@ -104,7 +118,7 @@ textarea.form-control:focus {
     background-color: #157347;
     box-shadow: 0 2px 6px rgba(25, 135, 84, 0.4);
 }
-
+*/
 /* TABLA */
 .table {
     margin-top: 1rem;

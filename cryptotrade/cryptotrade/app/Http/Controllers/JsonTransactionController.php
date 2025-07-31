@@ -23,6 +23,7 @@ class JsonTransactionController extends Controller
         return view('pay.json', compact('transactions'));
     }
 
+    // Guardar transacción en JSON
     public function storeToJson(Request $request)
 {
     $request->validate([
@@ -30,21 +31,38 @@ class JsonTransactionController extends Controller
         'payment_method' => 'required|in:Crédito,Efectivo',
     ]);
 
+    $amount = $request->input('amount');
+    $paymentMethod = $request->input('payment_method');
     $userId = $request->input('user_id');
-    if ($userId !== null && !User::find($userId)) {
+
+    // Validar existencia del usuario (si se proporciona)
+    $user = $userId ? User::find($userId) : null;
+    if ($userId !== null && !$user) {
         return redirect()->route('json.show')->with('error', 'El usuario con ID ' . $userId . ' no existe.');
     }
 
+    // Verificar crédito suficiente si es método Crédito
+    if ($paymentMethod === 'Crédito') {
+        if (!$user) {
+            return redirect()->route('json.show')->with('error', 'No se puede usar crédito sin un usuario válido.');
+        }
+
+        if ($user->balance < $amount) {
+            return redirect()->route('json.show')->with('error', 'Credito insuficiente. No se guardó la transacción.');
+        }
+    }
+
+    // Guardar en JSON si pasa todas las validaciones
     $data = [
-        'amount' => $request->input('amount'),
+        'amount' => $amount,
         'user_id' => $userId,
-        'payment_method' => $request->input('payment_method'),
+        'payment_method' => $paymentMethod,
         'created_at' => now()->toDateTimeString(),
     ];
 
     $path = storage_path('app/transactions/pending.json');
-
     $transactions = [];
+
     if (file_exists($path)) {
         $json = file_get_contents($path);
         $transactions = json_decode($json, true) ?: [];
@@ -55,8 +73,6 @@ class JsonTransactionController extends Controller
 
     return redirect()->route('json.show')->with('success', 'Transacción guardada en archivo JSON.');
 }
-
-
 
 
 
