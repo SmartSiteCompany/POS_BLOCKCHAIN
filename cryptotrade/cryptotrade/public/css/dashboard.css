@@ -1,47 +1,40 @@
-/* --- NUEVOS ESTILOS PARA LA VISTA DE TRANSACCIONES --- */
+/*CAMBIOS PARA NO GENERAR CONFUSIONES ENTRE SECCIONES DE PAGINA 31-JUL-2025*/
+.vista-transacciones .table thead th {
+    border: 1px solid #d1c4e9; /* color suave para los bordes */
+    border-bottom-width: 2px;   /* para que la línea inferior sea un poco más gruesa si quieres */
+    padding: 0.75rem;
+    background-color: #d5d4d696;  /* color de fondo del encabezado */
+    color: rgb(11, 10, 10);
+    font-weight: 600;
+}
 
-/* UTILS */
-.py-5 { padding-top: 3rem; padding-bottom: 3rem; }
-.mb-4 { margin-bottom: 1.5rem; }
-.d-flex { display: flex; }
-.justify-content-between { justify-content: space-between; }
-.align-items-center { align-items: center; }
-.text-muted { color: #6c757d; }
-
-/* BADGE */
-.badge {
+.vista-transacciones .badge {
     display: inline-block;
     padding: 0.35em 0.65em;
     font-size: 0.75em;
     font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
     border-radius: 0.375rem;
 }
 
-.bg-success {
+.vista-transacciones .bg-success {
     background-color: #198754;
     color: #fff;
 }
 
-.fs-6 {
+.vista-transacciones .fs-6 {
     font-size: 1rem;
 }
 
-/* TABLA INTERACTIVA */
-.table-hover tbody tr:hover {
+.vista-transacciones .table-hover tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-/* FILAS DE ESTADO */
-.table-success {
-    background-color: #d1e7dd !important;
-    color: #0f5132;
+.vista-transacciones .table-success {
+    background-color: #56b28873 !important;
+    color: #173c2b;
 }
 
-.table-danger {
-    background-color: #f8d7da !important;
-    color: #842029;
+.vista-transacciones .table-danger {
+    background-color: #dc7c848a !important;
+    color: #501e22;
 }

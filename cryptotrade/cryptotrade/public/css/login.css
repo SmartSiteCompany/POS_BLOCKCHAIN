@@ -1,34 +1,110 @@
 body {
-  background-color: #040420ff;
-  color: white;
+  background: linear-gradient(
+    to right,
+    #450c6e,
+    #4e2182,
+    #7446b6,
+    #8363d0,
+    #4f3b8c
+  );
+  color: rgb(255, 255, 255);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   margin: 0;
 }
 
-.login-card {
-  background-color: transparent;
-  text-align: center;
+/* Estilo principal de la tarjeta con fondo glass y blob animado */
+.card {
+  position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 450px;
+  border-radius: 14px;
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #1d1c1c;
+  margin: 1rem;
+}
+
+/* Fondo difuminado (glassmorphism) */
+.bg {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(40px);
+  border-radius: 10px;
+  outline: 2px solid white;
+}
+
+/* Blob animado */
+.blob {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #8363d0; /* Un lila bonito */
+  opacity: 1;
+  filter: blur(20px);
+  animation: blob-square 10s infinite linear;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes blob-square {
+  0% {
+    transform: translate(-50%, -50%) translate(-200px, -200px);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(200px, -200px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(200px, 200px);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(-200px, 200px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(-200px, -200px);
+  }
+}
+
+
+/* Contenido dentro de la tarjeta encima del blob y fondo */
+.content {
+  z-index: 3;
+  width: 100%;
+  text-align: center;
 }
 
 .login-title {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.3rem;
+  color: #4e2182;
 }
 
 .login-subtitle {
   font-size: 1.2rem;
   letter-spacing: 2px;
   margin-bottom: 2rem;
+  color: #7446b6;
 }
 
 .form-control {
+background-color: white !important;
+  color: black !important;
   border-radius: 0;
   padding: 0.75rem;
   font-size: 1rem;
@@ -37,8 +113,8 @@ body {
 .btn-login {
   margin-top: 1rem;
   width: 100%;
-  background-color: white;
-  color: #0052cc;
+  background-color: #4e2182;
+  color: white;
   font-weight: bold;
   border-radius: 0;
   padding: 0.75rem;
@@ -62,7 +138,7 @@ body {
 .small-text {
   margin-top: 1rem;
   font-size: 0.85rem;
-  color: #ddd;
+  color: #555;
 }
 
 .register-link {
@@ -72,10 +148,10 @@ body {
 }
 
 .register-link a {
-  color: white;
+  color: #4e2182;
   text-decoration: underline;
 }
 
 .register-link a:hover {
-  color: #cce0ff;
+  color: #8363d0;
 }

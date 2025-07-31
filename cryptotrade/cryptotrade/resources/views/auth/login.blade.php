@@ -14,28 +14,33 @@
     </div>
   @endif
 
-  <div class="login-card">
-    <div class="login-title">BLOCKCHAIN</div>
-    <div class="login-subtitle">Iniciar sesion</div>
+  <div class="card login-card">
+    <div class="bg"></div>
+    <div class="blob"></div>
 
-    <form method="POST" action="{{ route('login.submit') }}">
-      @csrf
+    <div class="content">
+      <div class="login-title">BLOCKCHAIN</div>
+      <div class="login-subtitle">Iniciar sesión</div>
 
-      <div class="mb-3">
-        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required autofocus />
+      <form method="POST" action="{{ route('login.submit') }}">
+        @csrf
+
+        <div class="mb-3">
+          <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required autofocus />
+        </div>
+
+        <div class="mb-3">
+          <input type="password" name="password" class="form-control" placeholder="Contraseña" required />
+        </div>
+
+        <button type="submit" class="btn btn-login">Continuar</button>
+      </form>
+
+      <div class="small-text">Debe de tener una cuenta para poder continuar.</div>
+
+      <div class="register-link">
+        ¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate aquí</a>
       </div>
-
-      <div class="mb-3">
-        <input type="password" name="password" class="form-control" placeholder="Contraseña" required />
-      </div>
-
-      <button type="submit" class="btn btn-login">Continuar</button>
-    </form>
-
-    <div class="small-text">Debe de tener una cuenta para poder continuar.</div>
-
-    <div class="register-link">
-      ¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate aquí</a>
     </div>
   </div>
 
