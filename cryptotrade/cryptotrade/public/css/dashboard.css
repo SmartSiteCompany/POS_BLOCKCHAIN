@@ -1,0 +1,47 @@
+/* --- NUEVOS ESTILOS PARA LA VISTA DE TRANSACCIONES --- */
+
+/* UTILS */
+.py-5 { padding-top: 3rem; padding-bottom: 3rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.d-flex { display: flex; }
+.justify-content-between { justify-content: space-between; }
+.align-items-center { align-items: center; }
+.text-muted { color: #6c757d; }
+
+/* BADGE */
+.badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375rem;
+}
+
+.bg-success {
+    background-color: #198754;
+    color: #fff;
+}
+
+.fs-6 {
+    font-size: 1rem;
+}
+
+/* TABLA INTERACTIVA */
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* FILAS DE ESTADO */
+.table-success {
+    background-color: #d1e7dd !important;
+    color: #0f5132;
+}
+
+.table-danger {
+    background-color: #f8d7da !important;
+    color: #842029;
+}
