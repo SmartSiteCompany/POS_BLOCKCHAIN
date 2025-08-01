@@ -1,0 +1,139 @@
+/* NAVBAR */
+.navbar {
+    height: 60px; /* Altura fija del navbar */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem; /* Sin padding vertical para no afectar altura */
+    background-color: #4e2182;
+}
+
+.navbar-dark .navbar-brand {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.navbar-dark .navbar-brand:hover {
+    color: #ddd;
+}
+
+/* TOGGLE BOTÓN (sin checkbox) */
+.toggle2 {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem; /* espacio a la derecha */
+  margin-left: -1rem;  
+  gap: 12px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  transition: 0.5s;
+}
+
+.bars {
+  width: 80%;
+  height: 6px;
+  background-color: #8363d0;
+  border-radius: 6px;
+  transition: all 0.5s ease;
+  position: relative;  /* para posicionar cuando active */
+}
+
+/* Barra central */
+#bar5 {
+  width: 100%;
+  transition-duration: 0.8s;
+}
+
+/* Cuando el toggle está activo */
+.toggle2.active #bar5 {
+  transform: scaleX(0);
+  transition-duration: 0.5s;
+}
+
+/* Las barras que forman la X */
+.toggle2.active #bar4, 
+.toggle2.active #bar6 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  transform-origin: center center; /* punto de giro */
+  transition-duration: 0.5s;
+  margin: 0;
+}
+
+/* Rotar barra superior */
+.toggle2.active #bar4 {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Rotar barra inferior */
+.toggle2.active #bar6 {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+
+.toggle2.active {
+  transform: rotate(180deg);
+  transition-duration: 0.5s;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 60px;  /* Empieza justo debajo del navbar */
+    left: -150px; /* Oculto inicialmente */
+    width: 150px;
+    height: calc(100% - 60px); /* Altura total menos navbar */
+    background-color: #343a40;
+    color: white;
+    padding: 1rem;
+    transition: left 0.3s ease;
+    z-index: 9999;
+}
+
+/* Mostrar sidebar al activar clase */
+.sidebar.sidebar-open {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 1rem 0;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 991.98px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .ms-auto {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+}
