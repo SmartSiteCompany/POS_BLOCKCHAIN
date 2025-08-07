@@ -55,13 +55,42 @@
     z-index: 10;
 }
 
+.btn11 {
+    font-family: "proxima-nova", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    text-transform: uppercase!important;
+    letter-spacing: 2px;
+    color: #4e2182;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center; /* Alinea el texto horizontalmente */
+    line-height: 60px; /* Asegura que el texto esté centrado verticalmente, ajusta según el alto del botón */
+    display: flex;
+    justify-content: center; /* Alinea el texto en el centro horizontalmente */
+    align-items: center; /* Alinea el texto en el centro verticalmente */
+    border: 1px solid #4e2182;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden!important;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    background: transparent!important;
+    z-index: 10;
+}
 
-.btn10:hover {
+
+
+.btn10:hover,.btn11:hover {
     border: 1px solid #4e2182;
     color: #fff!important;
 }
 
-.btn10::before {
+.btn10::before.btn11:before  {
     content: '';
     width: 0%;
     height: 100%;
@@ -82,7 +111,7 @@
     box-shadow: 2px 0px 14px rgba(0, 0, 0, .6);
 }
 
-.btn10::after {
+.btn10::after, .btn11::after  {
     content: '';
     width: 0%;
     height: 100%;
@@ -103,13 +132,13 @@
     box-shadow: 2px 0px 14px rgba(0, 0, 0, .6);
 }
 
-.btn10:hover::before, 
-.btn10:hover::after {
+.btn10:hover::before,.btn11:hover::before, 
+.btn10:hover::after,.btn11:hover::after {
     opacity: 1;
     width: 116%;
 }
 
-.btn10:hover::after {
+.btn10:hover::after,.btn11:hover::after {
     opacity: 1;
     width: 120%;
 }

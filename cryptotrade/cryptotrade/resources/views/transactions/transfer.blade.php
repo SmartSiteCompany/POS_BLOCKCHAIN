@@ -61,7 +61,7 @@
         <!-- Usuario Destino (Derecha) -->
         <div class="usuario-box text-center destino">
             <img id="to-photo" src="{{ asset('images/usuario.png') }}" class="user-photo mb-2" alt="Destinatario">
-            <h5> <span id="recipient-name">---</span></h5>
+            <h5> <span id="recipient-name">...</span></h5>
             <small class="text-muted">Cuenta Destino</small>
         </div>
     </div>
@@ -88,12 +88,14 @@
     </button>
 </div>
 
-        <div class="form-group">
+        <div class="form-group ">
             <label for="amount">Cantidad</label>
             <input type="number" name="amount" step="0.01" min="0.01" required class="form-input">
         </div>
 
-        <button type="submit" class="btn-submit">Transferir</button>
+<div class="form-button">
+        <button type="submit" class="btn11 ">Transferir</button>
+        </div>
     </form>
 
 </div>
@@ -118,7 +120,7 @@ document.getElementById('buscar-destinatario').addEventListener('click', async f
         document.getElementById('to-user-hidden').value = data.id;
     } catch (err) {
         alert('Error: ' + err.message);
-        document.getElementById('recipient-name').textContent = '---';
+        document.getElementById('recipient-name').textContent = '...';
         document.getElementById('to-user-hidden').value = '';
     }
 });

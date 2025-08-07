@@ -75,23 +75,24 @@
                             <th>Fecha</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($transactions as $index => $transaction)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ number_format($transaction['amount'], 2) }}</td>
-                                <td>{{ $transaction['user_id'] ?? 'No registrado' }}</td>
-                                <td>{{ ucfirst($transaction['payment_method']) }}</td>
-                                <td>
-                                    @if(isset($transaction['created_at']))
-                                        {{ \Carbon\Carbon::parse($transaction['created_at'])->format('d/m/Y H:i') }}
-                                    @else
-                                        Sin fecha
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                 <tbody>
+    @foreach($transactions as $index => $transaction)
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ number_format($transaction['amount'] ?? 0, 2) }}</td>
+            <td>{{ $transaction['user_id'] ?? 'No registrado' }}</td>
+            <td>{{ isset($transaction['payment_method']) ? ucfirst($transaction['payment_method']) : 'N/A' }}</td>
+            <td>
+                @if(isset($transaction['created_at']))
+                    {{ \Carbon\Carbon::parse($transaction['created_at'])->format('d/m/Y H:i') }}
+                @else
+                    Sin fecha
+                @endif
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
                 </table>
             @else
                 <p class="text-muted">No hay transacciones pendientes.</p>

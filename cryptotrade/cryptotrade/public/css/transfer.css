@@ -32,6 +32,18 @@
     position: relative;
 }
 
+.form-button {
+    height: 40px;
+    width: 30%;
+    margin: 0 auto; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
 .alert {
     padding: 15px 20px;
     border-radius: 6px;
@@ -69,6 +81,10 @@
 #recipient-id {
     width: 100%;
     padding-right: 2.5rem; /* espacio para el ícono */
+}
+
+.btn-submit {
+ background: #212529;
 }
 
 .btn-lupa {
