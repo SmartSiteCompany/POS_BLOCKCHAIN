@@ -10,7 +10,7 @@ use App\Models\Pay;
 
 class AuthController extends Controller
 {
-    // Mostrar formulario de registro
+    // Mostrar formulario de registro prueba
     public function showRegisterForm()
     {
         return view('auth.register');
