@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/json.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/transfer.css') }}" />
 </head>
 <body>
     <!-- Navbar -->
@@ -89,5 +90,6 @@
             toggleBtn.classList.toggle('active');
         });
     </script>
+    @stack('scripts')
 </body>
 </html>

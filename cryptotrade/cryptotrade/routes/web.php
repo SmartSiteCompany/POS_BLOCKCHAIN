@@ -21,6 +21,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 });
 
+Route::get('/buscar-usuario/{id}', function ($id) {
+    $user = \App\Models\User::find($id);
+    if (!$user) {
+        return response()->json(['error' => 'Usuario no encontrado'], 404);
+    }
+    return response()->json($user);
+});
+
+
 // Transacciones
 Route::get('/transactions/transfer', [TransactionController::class, 'showTransferForm'])->name('transactions.transferForm');
 Route::post('/transactions/transfer', [TransactionController::class, 'transfer'])->name('transactions.transfer');
@@ -48,5 +57,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.su
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 });
+
+
 
 

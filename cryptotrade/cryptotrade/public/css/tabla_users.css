@@ -73,28 +73,6 @@ body.bg-light {
     color: white;
 }
 
-/* ALERTAS */
-.alert {
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.375rem;
-    margin-bottom: 1rem;
-    position: relative;
-}
-
-.alert-success {
-    background-color: #d1e7dd;
-    color: #0f5132;
-    border: 1px solid #badbcc;
-}
-
-.alert-dismissible .btn-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-}
 
 /* BOTONES */
 .btn-alter {

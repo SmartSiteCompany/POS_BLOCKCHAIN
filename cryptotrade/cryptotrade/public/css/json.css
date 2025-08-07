@@ -14,34 +14,57 @@ h1 {
 }
 
 /* ALERTAS */
+/* ALERTAS FIJAS SOBRE EL CONTENIDO */
 .alert {
+    position: fixed;
+    top: 80px; /* subir un poco más para que no quede bajo el navbar (que tiene 70px de alto) */
+    right: 20px;
+    z-index: 11000; /* mayor que navbar */
     border-radius: 0.375rem;
     font-weight: 500;
+    padding: 1rem 1.5rem;
+    min-width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+
+/* Colores según tipo (tu esquema original) */
 .alert-success {
     background-color: #d1e7dd;
     color: #0f5132;
-    border-color: #badbcc;
+    border: 1px solid #badbcc;
 }
 
 .alert-info {
     background-color: #cff4fc;
     color: #055160;
-    border-color: #b6effb;
+    border: 1px solid #b6effb;
 }
 
 .alert-danger {
     background-color: #f8d7da;
     color: #842029;
-    border-color: #f5c2c7;
+    border: 1px solid #f5c2c7;
 }
 
 .alert-warning {
     background-color: #fff3cd;
     color: #664d03;
-    border-color: #ffecb5;
+    border: 1px solid #ffecb5;
 }
+
+/* Botón cerrar alerta, si usas */
+.alert .btn-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: inherit;
+    cursor: pointer;
+}
+
 
 
 /* FORMULARIO */

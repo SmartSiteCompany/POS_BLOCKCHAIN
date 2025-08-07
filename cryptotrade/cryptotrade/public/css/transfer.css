@@ -1,0 +1,235 @@
+.transfer-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-top: 1rem;
+    background-color: #c7c7c786;
+    border-radius: 9px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+    font-family: system-ui, sans-serif;
+}
+
+.transfer-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #212529;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.transfer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    border-radius: 9px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.alert-success { background-color: #4CAF50; }
+.alert-danger { background-color: #f44336; }
+.alert-info { background-color: #2196F3; }
+.alert-warning { background-color: #ff9800; }
+
+.btn-close {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+
+#recipient-id {
+    width: 100%;
+    padding-right: 2.5rem; /* espacio para el ícono */
+}
+
+.btn-lupa {
+    position: absolute;
+    right:15px;
+    top: 70%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+.form-select,
+.form-input {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    transition: border 0.2s ease;
+}
+
+.form-select:focus,
+.form-input:focus {
+    outline: none;
+    border-color: #670051;
+    box-shadow: 0 0 0 2px rgba(103, 0, 81, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.remitente-info {
+    background: linear-gradient(135deg, #7446b6, #4f3b8c);
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remitente-info > div {
+    flex: 1;
+}
+
+.sender-balance {
+    /* Alinea texto a la derecha */
+    text-align: right;
+}
+
+.transfer-visual {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin:40px ;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.usuario-box {
+    flex-basis: 120px;
+    text-align: center;
+}
+
+.user-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+
+
+.arrow-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 80px; /* igual a la altura de las imágenes */
+}
+
+#arrowAnim {
+  width: 100%;
+  height: 80px;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrowSliding {
+  position: absolute;
+  animation: slide 4s linear infinite;
+}
+
+.delay1 {
+  animation-delay: 1s;
+}
+.delay2 {
+  animation-delay: 2s;
+}
+.delay3 {
+  animation-delay: 3s;
+}
+
+/* Flecha apuntando hacia la derecha */
+.arrow {
+  width: 20px;
+  height: 20px;
+  border: 6px solid;
+  border-color: transparent #8363d0 #8363d0 transparent;
+  transform: rotate(-45deg);
+  background: transparent;
+  box-sizing: content-box;
+}
+
+/* Animación de movimiento de izquierda a derecha */
+@keyframes slide {
+    0%   { opacity: 0; transform: translateX(-150%); }
+    20%  { opacity: 1; transform: translateX(-90%); }
+    80%  { opacity: 1; transform: translateX(90%); }
+    100% { opacity: 0; transform: translateX(150%); }
+}
+
+/* Responsive: oculta animación en móviles */
+@media (max-width: 600px) {
+    #arrowAnim {
+        display: none;
+    }
+
+    .transfer-visual {
+        flex-direction: column;
+    }
+
+    .arrow-container {
+        margin: 1rem 0;
+    }
+}
+
+@keyframes waveArrow {
+    0%   { transform: translateX(0); letter-spacing: 0.1rem; }
+    50%  { transform: translateX(5px); letter-spacing: 0.3rem; }
+    100% { transform: translateX(0); letter-spacing: 0.1rem; }
+}

@@ -47,7 +47,7 @@ class TransactionController extends Controller
             ]);
         });
 
-        return redirect()->route('users.index')->with('success', 'Transferencia realizada.');
+        return redirect()->route('transactions.transfer')->with('success', 'Transferencia realizada.');
     }
 
     /**
