@@ -25,8 +25,9 @@
 
     <!-- Botón Depositar -->
     <div class="btn-depositar mt-4">
-        <a href="#" class="btn btn-purple px-5 py-2 fw-bold rounded-pill shadow-sm">Depositar</a>
-    </div>
+    <a href="#" class="btn btn10 px-5 py-2 fw-bold rounded-pill shadow-sm">Depositar</a>
+</div>
+
 
 </div>
 
