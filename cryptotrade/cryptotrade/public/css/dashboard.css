@@ -1,40 +1,180 @@
-/*CAMBIOS PARA NO GENERAR CONFUSIONES ENTRE SECCIONES DE PAGINA 31-JUL-2025*/
-.vista-transacciones .table thead th {
-    border: 1px solid #d1c4e9; /* color suave para los bordes */
-    border-bottom-width: 2px;   /* para que la línea inferior sea un poco más gruesa si quieres */
-    padding: 0.75rem;
-    background-color: #d5d4d696;  /* color de fondo del encabezado */
-    color: rgb(11, 10, 10);
-    font-weight: 600;
+/* General container */
+.vista-transacciones.container {
+    background: #c7c7c786;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(70, 50, 130, 0.08);
+    margin-top: 2rem;
 }
 
-.vista-transacciones .badge {
-    display: inline-block;
-    padding: 0.35em 0.65em;
-    font-size: 0.75em;
-    font-weight: 700;
-    border-radius: 0.375rem;
-}
-
-.vista-transacciones .bg-success {
-    background-color: #198754;
+/* Header fondo degradado */
+.bg-purple-gradient {
+    background: linear-gradient(135deg, #7446b6, #4f3b8c);
     color: #fff;
+    padding: 5%;
 }
 
-.vista-transacciones .fs-6 {
-    font-size: 1rem;
+/* Botón púrpura */
+.btn-purple {
+    background-color: #231537;
+    color: #fff;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+.btn-purple:hover {
+    background-color: #5a3790;
+    transform: scale(1.03);
 }
 
+/* Texto púrpura */
+.text-purple {
+    color: #5a3790;
+}
+
+/* Acciones rápidas */
+/* NUEVO estilo Quick Action con animación */
+
+/* Contenedor de acciones rápidas */
+.acciones-rapidas .d-flex {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+/* Quick Action expandible */
+
+
+.quick-action {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    display: inline-block;
+    width: 160px;
+    height: 60px;
+    border-radius: 15px;
+    border: 1px solid #03045e;
+    overflow: hidden;
+    transition: all 0.5s ease-in;
+    z-index: 1;
+    background-color: #7446b6;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    color: #03045e;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+}
+
+/* Animación de fondo (2 capas) */
+.quick-action::before,
+.quick-action::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100%;
+    transform: skew(15deg);
+    transition: all 0.5s;
+    z-index: -1;
+}
+
+.quick-action::before {
+    left: -10px;
+    background: #240046;
+}
+
+.quick-action::after {
+    right: -10px;
+    background: #5a189a;
+}
+
+.quick-action:hover::before,
+.quick-action:hover::after {
+    width: 58%;
+}
+
+.quick-action:hover {
+    color: #e0aaff;
+}
+
+/* Tabla */
+.vista-transacciones table td,
+.vista-transacciones table th {
+    vertical-align: middle;
+    font-size: 0.95rem;
+    padding: 0.75rem;
+}
 .vista-transacciones .table-hover tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f8f5ff;
 }
 
-.vista-transacciones .table-success {
-    background-color: #56b28873 !important;
-    color: #173c2b;
+.usuario-header {
+    position: relative;
 }
 
-.vista-transacciones .table-danger {
-    background-color: #dc7c848a !important;
-    color: #501e22;
+.usuario-header .welcome-text h3 {
+    font-size: 2rem;
+}
+
+.usuario-header .balance-display small {
+    font-size: 0.875rem;
+    color: #e0d7f7;
+}
+
+.usuario-header .balance-display h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-top: 0.25rem;
+}
+
+/* Nueva estructura del header */
+.usuario-header.card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.usuario-header .contenedor-dashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.usuario-header .seccion-usuario,
+.usuario-header .seccion-saldo {
+    flex: 1;
+    min-width: 260px;
+}
+
+.usuario-header .seccion-saldo {
+    text-align: right;
+}
+
+.usuario-header .btn-depositar {
+    text-align: center;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+    .usuario-header .balance-display {
+        text-align: left;
+    }
+
+    .usuario-header .balance-display h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .vista-transacciones h5 {
+        font-size: 1.2rem;
+    }
+    .quick-action {
+        flex: 1 1 45%;
+        width: 100%;
+    }
 }

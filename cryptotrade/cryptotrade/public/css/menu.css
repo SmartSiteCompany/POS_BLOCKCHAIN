@@ -1,13 +1,20 @@
 /* NAVBAR */
 .navbar {
-    height: 60px; /* Altura fija del navbar */
+    height: 70px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem; /* Sin padding vertical para no afectar altura */
-    background-color: #4e2182;
+    padding: 0 2rem;
+    background: linear-gradient(to right, #4f3b8c, #8363d0);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    position: relative;
+    z-index: 10000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* efecto de profundidad moderno */
 }
+
+
 
 .navbar-dark .navbar-brand {
     color: #fff;
@@ -90,9 +97,9 @@
 /* SIDEBAR */
 .sidebar {
     position: fixed;
-    top: 60px;  /* Empieza justo debajo del navbar */
-    left: -150px; /* Oculto inicialmente */
-    width: 150px;
+    top: 50px;  /* Empieza justo debajo del navbar */
+    left: -165px; /* Oculto inicialmente */
+    width: 165px;
     height: calc(100% - 60px); /* Altura total menos navbar */
     background-color: #343a40;
     color: white;
@@ -108,22 +115,21 @@
 
 .sidebar ul {
     list-style: none;
+    text-decoration: none;
     padding: 0;
 }
 
 .sidebar li {
     margin: 1rem 0;
+    text-decoration: none;
 }
 
 .sidebar a {
-    color: white;
     text-decoration: none;
     font-weight: bold;
 }
 
-.sidebar a:hover {
-    text-decoration: underline;
-}
+
 
 /* RESPONSIVE */
 @media (max-width: 991.98px) {

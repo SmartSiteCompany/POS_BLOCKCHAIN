@@ -19,25 +19,38 @@ body.bg-light {
     padding: 0 1rem;
 }
 
-/* MARGENES */
-.mt-5 { margin-top: 3rem; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
-.m-4  { margin: 1.5rem !important; }
+/* MÁRGENES PERSONALIZADOS */
+.mt-5 {
+    margin-top: 3rem;
+    background-color: #c7c7c786;
+    border-radius: 9px;
+}
 
-/* TABLA */
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.m-4 {
+    margin: 1.5rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+    padding: 10px;
+}
+
+/* TABLAS */
 .table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-
 }
 
-.encabezado{
+.encabezado {
     padding: 0.75rem;
     border: 1px solid #dee2e6;
     background-color: #670051;
-    color: #fff;   
+    color: #fff;
     text-align: left;
 }
 
@@ -60,9 +73,7 @@ body.bg-light {
     color: white;
 }
 
-
-
-/* ALERTA */
+/* ALERTAS */
 .alert {
     padding: 0.75rem 1.25rem;
     border-radius: 0.375rem;
@@ -85,26 +96,26 @@ body.bg-light {
     font-size: 1.2rem;
 }
 
-/* Estilo animado para botones con íconos (editar / eliminar) */
-
-/* Editar */
-.btn-alter  { background-color: #fda50d; } 
+/* BOTONES */
+.btn-alter {
+    background-color: #fda50d;
+}
 
 .btn-alter:hover {
-    background: #ffffff90;
+    background: #ffffff;
     color: #fda50d;
     border-color: #fda50d;
 }
 
-.btn-alter:click {
+.btn-alter:active {
     background: #fda50d;
     color: #fff;
     border-color: #fff;
 }
 
-
-/* Eliminar */
-.btn-danger  { background-color: #dc3545; } 
+.btn-danger {
+    background-color: #dc3545;
+}
 
 .btn-danger:hover {
     background: #ffffff90;
@@ -112,15 +123,15 @@ body.bg-light {
     border-color: #dc3545;
 }
 
-.btn-danger:click {
+.btn-danger:active {
     background: #dc3545;
     color: #fff;
     border-color: #fff;
 }
 
-
-/* Pagos */
-.btn-success  { background-color: #198754; } 
+.btn-success {
+    background-color: #198754;
+}
 
 .btn-success:hover {
     background: #ffffff;
@@ -128,15 +139,15 @@ body.bg-light {
     border-color: #198754;
 }
 
-.btn-success:click {
+.btn-success:active {
     background: #198754;
     color: #fff;
     border-color: #fff;
 }
 
-
-/* Agregar */
-.btn-primary  { background-color: #0d6efd; } 
+.btn-primary {
+    background-color: #0d6efd;
+}
 
 .btn-primary:hover {
     background: #ffffff;
@@ -144,25 +155,20 @@ body.bg-light {
     border-color: #0d6efd;
 }
 
-.btn-primary:click {
+.btn-primary:active {
     background: #0d6efd;
     color: #fff;
     border-color: #fff;
 }
 
-/*Botones*/
-
-.action-button:hover svg {
-    transform: translateX(1.8rem) scale(1.1);
-}
-
+/* BOTONES ANIMADOS */
 .action-button {
     font-family: inherit;
     font-size: 16px;
     color: white;
     fill: rgb(155, 153, 153);
     padding: 0.4em 0.8em;
-    width: 130px; /* o el ancho que quieras */
+    width: 130px;
     justify-content: flex-start;
     padding-left: 1rem;
     display: inline-flex;
@@ -188,12 +194,14 @@ body.bg-light {
     transition: transform 0.3s ease-in-out;
 }
 
+.action-button:hover svg {
+    transform: translateX(1.8rem) scale(1.1);
+}
 
 .action-button:hover .svg-wrapper {
     transform: scale(1.25);
     transition: 0.6s linear;
 }
-
 
 .action-button:hover span {
     opacity: 0;
@@ -202,6 +210,7 @@ body.bg-light {
 
 .action-button:active {
     transform: scale(0.95);
+    text-decoration: none;
 }
 
 .svg-wrapper-1 {
@@ -213,19 +222,27 @@ body.bg-light {
     display: flex;
 }
 
-
 /* POSICIONAMIENTO */
 .position-fixed {
     position: fixed !important;
 }
 
-.top-0    { top: 0; }
-.end-0    { right: 0; }
-.shadow   { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); }
+.top-0 {
+    top: 0;
+}
+
+.end-0 {
+    right: 0;
+}
+
+.shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-    .table th, .table td {
+    .table th,
+    .table td {
         font-size: 0.875rem;
         padding: 0.5rem;
     }
