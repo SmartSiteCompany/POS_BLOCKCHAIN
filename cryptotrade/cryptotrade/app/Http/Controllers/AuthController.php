@@ -73,21 +73,39 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    // Mostrar dashboard con las transacciones
+    // Mostrar dashboard con las transacciones cambios 07/08/2025
     public function dashboard()
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        if ($user->kind == 2) {
-            // Administrador ve todas las transacciones
-            $transactions = Pay::orderByDesc('created_at')->get();
-        } else {
-            // Usuario normal ve solo sus transacciones
-            $transactions = Pay::where('user_id', $user->id)
-                               ->orderByDesc('created_at')
-                               ->get();
-        }
-
-        return view('dashboard', compact('user', 'transactions'));
+    if ($user->kind == 2) {
+        // Administrador ve todas las transacciones
+        $transactions = Pay::orderByDesc('created_at')->get();
+    } else {
+        // Usuario normal ve solo sus transacciones
+        $transactions = Pay::where('user_id', $user->id)
+                           ->orderByDesc('created_at')
+                           ->get();
     }
+
+    // Se define tu arreglo de acciones para los botones
+    $acciones = [
+        [
+            'url' => route('transferir'),
+            'icon' => 'bi-currency-exchange',
+            'label' => 'Transferir',
+            'texto_extra' => 'Envía dinero rápido'
+        ],
+        [
+            'url' => route('pagar'), 
+            'icon' => 'bi-credit-card',
+            'label' => 'Pagar',
+        
+        ],
+        
+    ];
+
+    return view('dashboard', compact('user', 'transactions', 'acciones'));
+}
+
 }

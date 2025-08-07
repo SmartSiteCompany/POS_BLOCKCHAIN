@@ -50,4 +50,15 @@ body {
     margin-left: auto;
 }
 
+/*estilos mas bonitos en los botonoes cambios: 07/07/25 */
+.quick-action-icon i {
+    font-size: 28px;
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+.quick-action:hover .quick-action-icon i {
+    transform: scale(1.2);
+}
+
+
 /* Otros estilos globales aquí... */

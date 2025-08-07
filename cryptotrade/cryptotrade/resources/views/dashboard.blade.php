@@ -31,14 +31,13 @@
 </div>
 
 
-
-    <!-- Acciones rápidas -->
-    @php
+<!--Se cambiaron las acciones en el controlador, y se modificaron botones 07/08/2025-->
+@php
 $acciones = [
-    ['icon' => 'bi-send-fill', 'label' => 'Enviar', 'url' => 'transactions/transfer'],
-    ['icon' => 'bi-download', 'label' => 'Retirar', 'url' => '/transactions/withdraw'],
-    ['icon' => 'bi-upc-scan', 'label' => 'QR', 'url' => '/transactions/qr'],
-    ['icon' => 'bi-phone', 'label' => 'Recargar', 'url' => '/transactions/recharge'],
+    ['icon' => 'ri-folder-transfer-fill', 'label' => 'Enviar', 'url' => 'transactions/transfer'],
+    ['icon' => 'ri-hand-heart-line', 'label' => 'Retirar', 'url' => '/transactions/withdraw'],
+    ['icon' => 'ri-qr-code-line', 'label' => 'QR', 'url' => '/transactions/qr'],
+    ['icon' => 'ri-wallet-3-fill', 'label' => 'Recargar', 'url' => '/transactions/recharge'],
 ];
 @endphp
 
@@ -47,12 +46,20 @@ $acciones = [
     <div class="d-flex flex-wrap gap-3">
         @foreach ($acciones as $action)
             <a href="{{ $action['url'] }}" class="quick-action text-center border rounded p-3" style="min-width: 90px;">
-                <div class="quick-action-icon fs-3 mb-2"><i class="bi {{ $action['icon'] }}"></i></div>
-                <div class="quick-action-label">{{ $action['label'] }}</div>
+                <div class="quick-action-icon fs-3 mb-2">
+                    <i class="bi {{ $action['icon'] }}"></i>
+                </div>
+                <div class="quick-action-label">
+                    {{ $action['label'] }}
+                </div>
+                <div class="quick-action-text mt-1">
+                    {{ $action['texto_extra'] ?? '' }}
+                </div>
             </a>
         @endforeach
     </div>
 </div>
+
 
 
     <!-- Tabla de transacciones -->

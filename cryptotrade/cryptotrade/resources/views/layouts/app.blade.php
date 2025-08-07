@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/json.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet"> 
+
 </head>
 <body>
     <!-- Navbar -->

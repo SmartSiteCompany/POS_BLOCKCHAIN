@@ -12,8 +12,6 @@
             </div>
         @endif
 
-       
-
         <table class="table table-bordered table-striped mt-3">
             <thead class="encabezado-dark">
                 <tr>
@@ -32,35 +30,25 @@
                         <td>{{ $user->email }}</td>
                         <td>${{ number_format($user->balance, 2) }}</td>
                         <td class="d-flex gap-1">
-                            <!-- Botón de Editar (corregido) -->
-                            <a href="{{ route('users.edit', $user->id) }}" class="action-button btn-alter text-decoration-none">
-                                <div class="svg-wrapper-1">
-                                    <div class="svg-wrapper">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" class="icon">
-                                            <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41L18.37 3.29c-.39-.39-1.02-.39-1.41 0L15.13 5.12l3.75 3.75 1.83-1.83z"/>
-                                        </svg>
-                                    </div>
-                                </div>
+
+                            <!-- Botón de Editar con ícono Remixicon -->
+                            <a href="{{ route('users.edit', $user->id) }}" class="action-button btn-alter text-decoration-none d-flex align-items-center gap-1">
+                                <i class="ri-edit-box-line" style="font-size: 20px;"></i>
                                 <span>Editar</span>
                             </a>
 
-                            <!-- Botón de Eliminar -->
+                            <!-- Botón de Eliminar con ícono Remixicon -->
                             @if ($user->kind != 2)
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="action-button btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
-                                        <div class="svg-wrapper-1">
-                                            <div class="svg-wrapper">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                                    <path fill="currentColor" d="M9 3v1H4v2h16V4h-5V3H9zm2 4v12h2V7h-2zM7 7v12h2V7H7zm8 0v12h2V7h-2z"/>
-                                                </svg>
-                                            </div>
-                                        </div>
+                                    <button type="submit" class="action-button btn-danger d-flex align-items-center gap-1" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                        <i class="ri-delete-bin-6-line" style="font-size: 20px;"></i>
                                         <span>Eliminar</span>
                                     </button>
                                 </form>
                             @endif
+
                         </td>
                     </tr>
                 @endforeach
@@ -69,3 +57,4 @@
     </div>
     <script src="{{ asset('js/alerts.js') }}"></script>
 @endsection
+
