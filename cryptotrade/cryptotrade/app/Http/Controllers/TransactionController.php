@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 
 class TransactionController extends Controller
 {
@@ -19,7 +16,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Procesar la transferencia entre usuarios.
+     * Guardar la transferencia en el archivo JSON (pendiente de procesar).
      */
     public function transfer(Request $request) {
         $request->validate([
@@ -28,57 +25,39 @@ class TransactionController extends Controller
             'amount' => 'required|numeric|min:0.01'
         ]);
 
-        $sender = User::find($request->from_user);
-        $receiver = User::find($request->to_user);
         $amount = $request->amount;
+        $senderId = $request->from_user;
+        $receiverId = $request->to_user;
 
+        $sender = User::find($senderId);
+
+        // Verificar saldo suficiente antes de guardar
         if ($sender->balance < $amount) {
             return back()->with('error', 'Fondos insuficientes.');
         }
 
-        DB::transaction(function () use ($sender, $receiver, $amount) {
-            $sender->decrement('balance', $amount);
-            $receiver->increment('balance', $amount);
+        $path = storage_path('app/transactions/pending.json');
+        $transactions = [];
 
-            Transaction::create([
-                'sender_id' => $sender->id,
-                'receiver_id' => $receiver->id,
-                'amount' => $amount,
-                'type' => 'transfer'
-            ]);
-        });
+        if (file_exists($path)) {
+            $json = file_get_contents($path);
+            $transactions = json_decode($json, true) ?: [];
+        }
 
-        return redirect()->route('transactions.transfer')->with('success', 'Transferencia realizada.');
-    }
-
-    /**
-     * Mostrar el formulario para agregar saldo a un usuario.
-     */
-    public function showBuyForm($id) {
-        $user = User::findOrFail($id);
-        return view('transactions.buy', compact('user'));
-    }
-
-    /**
-     * Procesar la compra de saldo para un usuario.
-     */
-    public function buy(Request $request, $id) {
-        $request->validate([
-            'amount' => 'required|numeric|min:0.01'
-        ]);
-
-        $user = User::findOrFail($id);
-        $amount = $request->amount;
-
-        $user->increment('balance', $amount);
-
-        Transaction::create([
-            'sender_id' => null,
-            'receiver_id' => $user->id,
+        // Añadir transacción de tipo transfer a JSON
+        $transactions[] = [
             'amount' => $amount,
-            'type' => 'buy'
-        ]);
+            'category' => 'transfer',
+            'sender_id' => $senderId,
+            'receiver_id' => $receiverId,
+            'created_at' => now()->toDateTimeString(),
+        ];
 
-        return redirect()->route('users.index')->with('success', 'Compra realizada con éxito.');
+        file_put_contents($path, json_encode($transactions, JSON_PRETTY_PRINT));
+
+        return redirect()->route('transactions.transfer')->with('success', 'Transferencia guardada y pendiente de procesamiento.');
     }
+
+
+
 }

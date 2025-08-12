@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Pay;
+use App\Models\Transaction;
 
 class AuthController extends Controller
 {
@@ -73,21 +74,53 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    // Mostrar dashboard con las transacciones
-    public function dashboard()
-    {
-        $user = Auth::user();
+   public function dashboard()
+{
+    $user = Auth::user();
 
-        if ($user->kind == 2) {
-            // Administrador ve todas las transacciones
-            $transactions = Pay::orderByDesc('created_at')->get();
-        } else {
-            // Usuario normal ve solo sus transacciones
-            $transactions = Pay::where('user_id', $user->id)
-                               ->orderByDesc('created_at')
-                               ->get();
-        }
-
-        return view('dashboard', compact('user', 'transactions'));
+    // Obtener movimientos de Pays (Efectivo y Crédito)
+    if ($user->kind == 2) {
+        $pays = Pay::orderByDesc('created_at')->get();
+        $transfers = Transaction::with(['sender', 'receiver'])->orderByDesc('created_at')->get();
+    } else {
+        $pays = Pay::where('user_id', $user->id)->orderByDesc('created_at')->get();
+        $transfers = Transaction::with(['sender', 'receiver'])
+            ->where(function($query) use ($user) {
+                $query->where('sender_id', $user->id)
+                      ->orWhere('receiver_id', $user->id);
+            })->orderByDesc('created_at')->get();
     }
+
+    // Normalizar Pays para vista (agregamos 'type' para distinguir)
+    $pays = $pays->map(function($pay) {
+        return (object) [
+            'id' => $pay->id,
+            'amount' => $pay->amount,
+            'type' => strtolower($pay->payment_method), // "efectivo" o "credito"
+            'created_at' => $pay->created_at,
+            'sender' => null,
+            'receiver' => null,
+            'user_id' => $pay->user_id,
+        ];
+    });
+
+    // Normalizar Transactions para vista (ya tienen tipo: 'transfer')
+    $transfers = $transfers->map(function($tx) {
+        return (object) [
+            'id' => $tx->id,
+            'amount' => $tx->amount,
+            'type' => $tx->type, // 'transfer'
+            'created_at' => $tx->created_at,
+            'sender' => $tx->sender,
+            'receiver' => $tx->receiver,
+        ];
+    });
+
+    // Combinar y ordenar todo por fecha descendente
+    $transactions = $pays->concat($transfers)
+        ->sortByDesc('created_at')
+        ->values();
+
+    return view('dashboard', compact('user', 'transactions'));
+}
 }

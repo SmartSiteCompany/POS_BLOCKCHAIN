@@ -76,22 +76,40 @@
                         </tr>
                     </thead>
                  <tbody>
-    @foreach($transactions as $index => $transaction)
-        <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ number_format($transaction['amount'] ?? 0, 2) }}</td>
-            <td>{{ $transaction['user_id'] ?? 'No registrado' }}</td>
-            <td>{{ isset($transaction['payment_method']) ? ucfirst($transaction['payment_method']) : 'N/A' }}</td>
-            <td>
-                @if(isset($transaction['created_at']))
-                    {{ \Carbon\Carbon::parse($transaction['created_at'])->format('d/m/Y H:i') }}
-                @else
-                    Sin fecha
-                @endif
-            </td>
-        </tr>
-    @endforeach
+@foreach($transactions as $index => $transaction)
+    <tr>
+        <td>{{ $index + 1 }}</td>
+        <td>{{ number_format($transaction['amount'] ?? 0, 2) }}</td>
+        
+        {{-- Mostrar usuarios dependiendo de categoría --}}
+        <td>
+            @if(isset($transaction['category']) && $transaction['category'] === 'transfer')
+                De: {{ $transaction['sender_id'] }} <br>
+                Para: {{ $transaction['receiver_id'] }}
+            @else
+                {{ $transaction['user_id'] ?? 'No registrado' }}
+            @endif
+        </td>
+
+        <td>
+            @if(isset($transaction['category']) && $transaction['category'] === 'transfer')
+                Transferencia
+            @else
+                {{ isset($transaction['payment_method']) ? ucfirst($transaction['payment_method']) : 'N/A' }}
+            @endif
+        </td>
+
+        <td>
+            @if(isset($transaction['created_at']))
+                {{ \Carbon\Carbon::parse($transaction['created_at'])->format('d/m/Y H:i') }}
+            @else
+                Sin fecha
+            @endif
+        </td>
+    </tr>
+@endforeach
 </tbody>
+
 
                 </table>
             @else

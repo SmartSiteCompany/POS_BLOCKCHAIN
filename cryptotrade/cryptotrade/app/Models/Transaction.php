@@ -3,18 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;  // IMPORTANTE: Importa User para las relaciones
 
 class Transaction extends Model
 {
     /**
-     * The attributes that are mass assignable.
+     * Los atributos que se pueden asignar masivamente.
      *
      * @var array<int, string>
      */
     protected $fillable = ['sender_id', 'receiver_id', 'amount', 'type'];
 
     /**
-     * Get the user who sent the transaction.
+     * Usuario que envió la transacción.
      */
     public function sender()
     {
@@ -22,7 +23,7 @@ class Transaction extends Model
     }
 
     /**
-     * Get the user who received the transaction.
+     * Usuario que recibió la transacción.
      */
     public function receiver()
     {

@@ -6,10 +6,10 @@
 
     <div class="remitente-info mb-4 d-flex justify-content-between align-items-center">
         <div class="sender-name">
-            <h5 class="mb-1"><strong>Remitente:</strong> <span id="sender-name">{{ $users->first()->name }}</span></h5>
+            <h5 class="mb-1"><strong>Remitente:</strong> <span id="sender-name">{{ auth()->user()->name }}</span></h5>
         </div>
         <div class="sender-balance text-end">
-            <p class="mb-0"><strong>Saldo actual:</strong> $<span id="sender-balance">{{ number_format($users->first()->balance, 2) }}</span></p>
+            <p class="mb-0"><strong>Saldo actual:</strong> $<span id="sender-balance">{{ number_format(auth()->user()->balance, 2) }}</span></p>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
         <!-- Usuario Origen (Izquierda) -->
         <div class="usuario-box text-center origen">
             <img id="from-photo" src="{{ asset('images/usuario.png') }}" class="user-photo mb-2" alt="Remitente">
-            <div><strong id="from-name">{{ $users->first()->name }}</strong></div>
+            <div><strong id="from-name">{{ auth()->user()->name }}</strong></div>
             <small class="text-muted">Cuenta Origen</small>
         </div>
 
@@ -61,7 +61,7 @@
         <!-- Usuario Destino (Derecha) -->
         <div class="usuario-box text-center destino">
             <img id="to-photo" src="{{ asset('images/usuario.png') }}" class="user-photo mb-2" alt="Destinatario">
-            <h5> <span id="recipient-name">...</span></h5>
+            <h5><span id="recipient-name">...</span></h5>
             <small class="text-muted">Cuenta Destino</small>
         </div>
     </div>
@@ -76,25 +76,23 @@
         <input type="hidden" name="to_user" id="to-user-hidden">
 
         <div class="form-group">
-    <label for="recipient-id" class="form-label">ID del destinatario</label>
-    
-    <input type="number" class="form-input" id="recipient-id" placeholder="Escribe el ID del destinatario">
-
-    <button type="button" id="buscar-destinatario" class="btn-lupa" title="Buscar">
-        <!-- Ícono SVG de lupa -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#555" viewBox="0 0 24 24">
-            <path d="M10 2a8 8 0 105.293 14.293l5.707 5.707 1.414-1.414-5.707-5.707A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"/>
-        </svg>
-    </button>
-</div>
+            <label for="recipient-id" class="form-label">ID del destinatario</label>
+            <input type="number" class="form-input" id="recipient-id" placeholder="Escribe el ID del destinatario">
+            <button type="button" id="buscar-destinatario" class="btn-lupa" title="Buscar">
+                <!-- Ícono SVG de lupa -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#555" viewBox="0 0 24 24">
+                    <path d="M10 2a8 8 0 105.293 14.293l5.707 5.707 1.414-1.414-5.707-5.707A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"/>
+                </svg>
+            </button>
+        </div>
 
         <div class="form-group ">
             <label for="amount">Cantidad</label>
             <input type="number" name="amount" step="0.01" min="0.01" required class="form-input">
         </div>
 
-<div class="form-button">
-        <button type="submit" class="btn11 ">Transferir</button>
+        <div class="form-button">
+            <button type="submit" class="btn11 ">Transferir</button>
         </div>
     </form>
 

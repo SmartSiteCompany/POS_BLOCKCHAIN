@@ -19,6 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+
+    Route::get('/transactions/transfer', [TransactionController::class, 'showTransferForm'])->name('transactions.transferForm');
+Route::post('/transactions/transfer', [TransactionController::class, 'transfer'])->name('transactions.transfer');
 });
 
 Route::get('/buscar-usuario/{id}', function ($id) {
@@ -31,8 +34,7 @@ Route::get('/buscar-usuario/{id}', function ($id) {
 
 
 // Transacciones
-Route::get('/transactions/transfer', [TransactionController::class, 'showTransferForm'])->name('transactions.transferForm');
-Route::post('/transactions/transfer', [TransactionController::class, 'transfer'])->name('transactions.transfer');
+
 Route::get('/transactions/buy/{id}', [TransactionController::class, 'showBuyForm'])->name('transactions.buyForm');
 Route::post('/transactions/buy/{id}', [TransactionController::class, 'buy'])->name('transactions.buy');
 
