@@ -42,10 +42,6 @@ Route::post('/transactions/buy/{id}', [TransactionController::class, 'buy'])->na
 Route::get('/pay', [PayController::class, 'create'])->name('pay.create');
 Route::post('/pay', [PayController::class, 'store'])->name('pay.store');
 
-// JSON transacciones
-Route::get('/json', [JsonTransactionController::class, 'showPendingTransactions'])->name('json.show');
-Route::post('/json/save', [JsonTransactionController::class, 'storeToJson'])->name('json.save');
-Route::post('/json/process', [JsonTransactionController::class, 'processJson'])->name('json.process');
 
 // Rutas de autenticación
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -58,6 +54,12 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.su
 // Rutas protegidas (requieren login)
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+
+    // JSON transacciones
+Route::get('/json', [JsonTransactionController::class, 'showPendingTransactions'])->name('json.show');
+Route::post('/json/save', [JsonTransactionController::class, 'storeToJson'])->name('json.save');
+Route::post('/json/process', [JsonTransactionController::class, 'processJson'])->name('json.process');
+
 });
 
 

@@ -96,7 +96,7 @@ body.bg-light {
 }
 
 .btn-danger:hover {
-    background: #ffffff90;
+    background: #ffffff;
     color: #dc3545;
     border-color: #dc3545;
 }
