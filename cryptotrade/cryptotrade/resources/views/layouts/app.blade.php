@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="{{ asset('css/json.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/transfer.css') }}" />
+    
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-papj1F+1b1..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet"> 
+
 </head>
 <body>
     <!-- Navbar -->
@@ -38,7 +42,7 @@
     <div class="sidebar">
         <ul>
             
-          <li><a href="{{ route('register') }}" class="action-button btn-primary text-decoration-none">
+          <li><a href="{{ route('users.index') }}" class="action-button btn-primary text-decoration-none">
             <div class="svg-wrapper-1">
                 <div class="svg-wrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -46,7 +50,7 @@
                     </svg>
                 </div>
             </div>
-            <span>Registro</span>
+            <span>Usuarios</span>
         </a></li>
 
          <li><a href="{{ route('dashboard') }}" class="action-button btn-alter text-decoration-none">

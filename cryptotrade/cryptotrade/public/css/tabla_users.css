@@ -39,40 +39,36 @@ body.bg-light {
     padding: 10px;
 }
 
-/* TABLAS */
+/* TABLA */
 .table {
-    width: 100%;
-    border-collapse: collapse;
     margin-top: 1rem;
+    border-collapse: collapse;
+    width: 100%;
 }
 
-.encabezado {
+.vista-usuarios .table th {
+    background-color: #7446b6;
+    font-weight: 600;
+    color: #ffffff;
+    border: 1px solid #d1c4e9;
+    vertical-align: middle;
     padding: 0.75rem;
-    border: 1px solid #dee2e6;
-    background-color: #670051;
-    color: #fff;
-    text-align: left;
 }
+
+.vista-usuarios .table tr:nth-child(odd) {
+    background-color: #8463d050; /* color filas impares */
+}
+
+.vista-usuarios .table tr:nth-child(even) {
+    background-color: #7546b675; /* color filas pares */
+}
+
 
 .table td {
     padding: 0.75rem;
     border: 1px solid #dee2e6;
     text-align: left;
 }
-
-.table-striped tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
-}
-
-.table-bordered {
-    border: 1px solid #dee2e6;
-}
-
-.table-dark {
-    background-color: #343a40;
-    color: white;
-}
-
 
 /* BOTONES */
 .btn-alter {

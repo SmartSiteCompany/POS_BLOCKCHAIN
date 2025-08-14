@@ -100,7 +100,7 @@
     top: 50px;  /* Empieza justo debajo del navbar */
     left: -165px; /* Oculto inicialmente */
     width: 165px;
-    height: calc(100% - 60px); /* Altura total menos navbar */
+    height: 100%; /* Altura total menos navbar */
     background-color: #343a40;
     color: white;
     padding: 1rem;

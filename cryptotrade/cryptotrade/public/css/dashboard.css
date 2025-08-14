@@ -7,6 +7,8 @@
     margin-top: 2rem;
 }
 
+
+
 /* Header fondo degradado */
 .bg-purple-gradient {
     background: linear-gradient(135deg, #7446b6, #4f3b8c);
@@ -173,6 +175,7 @@
 /* Texto púrpura */
 .text-purple {
     color: #5a3790;
+    margin: 10px;
 }
 
 /* Acciones rápidas */
@@ -181,30 +184,31 @@
 /* Contenedor de acciones rápidas */
 .acciones-rapidas .d-flex {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 16px;
 }
 
 /* Quick Action expandible */
 .quick-action {
-    width: 100%;
-    height: 60px; /* Ajusta esta altura a la inicial */
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 15px 10px;
     border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.5s ease-in-out;
-    background-color: #7446b6;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 500;
-    color: #03045e;
+    background: linear-gradient(135deg, #7446b6, #4f3b8c);
+    color: #fff;
     text-align: center;
-    line-height: 60px; /* Alinea el texto verticalmente en su estado contraído */
     text-decoration: none;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
     z-index: 1;
 }
-/* Animación de fondo (2 capas) */
+
 .quick-action::before,
 .quick-action::after {
     content: '';
@@ -219,12 +223,12 @@
 
 .quick-action::before {
     left: -10px;
-    background: #240046;
+    background: #7446b6;
 }
 
 .quick-action::after {
     right: -10px;
-    background: #5a189a;
+    background: #4f3b8c;
 }
 
 .quick-action:hover::before,
@@ -233,7 +237,24 @@
 }
 
 .quick-action:hover {
-    color: #e0aaff;
+    color: #fff;
+}
+
+/* Etiquetas internas */
+.quick-action-icon {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.quick-action-label {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.quick-action-text {
+    font-size: 0.8rem;
+    color: #e0e0e0;
 }
 
 /* Tabla */
@@ -266,6 +287,117 @@
     margin-top: 0.25rem;
 }
 
+.vista-transacciones table tbody tr:nth-child(odd) {
+    background-color: #8463d050; /* color filas impares */
+    transition: background-color 0.9s ease; 
+}
+/* Celda de ícono: mantiene su fondo aunque la fila cambie */
+/* Todas las filas de tipo tr y sus celdas de ícono */
+.vista-transacciones table tbody tr.tr-transfer,
+.vista-transacciones table tbody tr.tr-credit,
+.vista-transacciones table tbody tr.tr-cash,
+.vista-transacciones table tbody tr.tr-buy,
+.vista-transacciones table tbody tr.tr-transfer td.icon-column,
+.vista-transacciones table tbody tr.tr-credit td.icon-column,
+.vista-transacciones table tbody tr.tr-cash td.icon-column, 
+.vista-transacciones table tbody tr.tr-buy td.icon-column {
+    transition: background-color 0.9s ease;
+    text-align: center; /* si quieres centrar iconos en todas las celdas */
+}
+
+
+.vista-transacciones table tbody tr:nth-child(even) {
+    background-color: #7546b675; /* color filas pares */
+    transition: background-color 0.9s ease; 
+}
+
+/* Cambiar color del icono dentro del círculo al hacer hover sobre la fila */
+.vista-transacciones table tbody tr.tr-transfer:hover .icon-circle,
+.vista-transacciones table tbody tr.tr-credit:hover .icon-circle,
+.vista-transacciones table tbody tr.tr-cash:hover .icon-circle,
+.vista-transacciones table tbody tr.tr-buy:hover .icon-circle  {
+    color: #fff;
+    transition: color 0.9s ease; /* cambio suave */
+}
+
+
+/* Solo texto dentro de celdas (excepto iconos) al hacer hover sobre la fila */
+.vista-transacciones table tbody tr:hover td:not(.icon-column),
+.vista-transacciones table tbody tr:hover td:not(.icon-column) * {
+    color: #fff;
+    transition: color 0.9s ease; /* cambio suave */
+}
+
+/* Filas según tipo de transacción */
+.vista-transacciones table tbody tr.tr-transfer:hover {
+    background-color: #0d6dfd82; 
+}
+
+/* Celda de ícono: mantiene su fondo aunque la fila cambie */
+.vista-transacciones table tbody tr.tr-transfer:hover td.icon-column {
+    background-color: #0d6dfd; 
+}
+
+
+.vista-transacciones table tbody tr.tr-credit:hover {
+    background-color: #dc354680; 
+}
+
+.vista-transacciones table tbody tr.tr-credit:hover td.icon-column{
+    background-color: #dc3545; 
+} 
+
+
+.vista-transacciones table tbody tr.tr-cash:hover {
+    background-color: #19875483;
+}
+
+.vista-transacciones table tbody tr.tr-cash:hover td.icon-column{
+    background-color: #198754;
+}
+
+
+.vista-transacciones table tbody tr.tr-buy:hover {
+    background-color: #fda50d83;
+}
+
+.vista-transacciones table tbody tr.tr-buy:hover td.icon-column{
+    background-color: #fda50d;
+}
+
+
+
+/* Ícono dentro de la celda como círculo */
+.icon-circle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #5a189a;              
+    font-size: 1.2rem;  
+}
+
+
+/* Balance borroso */
+.balance-amount.blurred {
+    filter: blur(6px);
+    transition: filter 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+/* Balance visible */
+.balance-amount.visible {
+    filter: blur(0);
+}
+
+/* Etiqueta DTX */
+.balance-amount .dtx-label {
+    font-size: 0.7em;
+    color: #f0f0f0;
+    margin-left: 0.3rem;
+    font-weight: 600;
+}
+
+
 /* Nueva estructura del header */
 .usuario-header.card {
     display: flex;
@@ -294,6 +426,8 @@
 .usuario-header .btn-depositar {
     text-align: center;
 }
+
+
 
 /* Responsive ajustes */
 @media (max-width: 768px) {

@@ -93,16 +93,24 @@ class AuthController extends Controller
 
     // Normalizar Pays para vista (agregamos 'type' para distinguir)
     $pays = $pays->map(function($pay) {
-        return (object) [
-            'id' => $pay->id,
-            'amount' => $pay->amount,
-            'type' => strtolower($pay->payment_method), // "efectivo" o "credito"
-            'created_at' => $pay->created_at,
-            'sender' => null,
-            'receiver' => null,
-            'user_id' => $pay->user_id,
-        ];
-    });
+    $method = strtolower($pay->payment_method ?? 'efectivo'); // default a efectivo
+    $method = str_replace(['á','é','í','ó','ú'], ['a','e','i','o','u'], $method);
+
+    // Aseguramos que solo tenga los tipos válidos
+    if (!in_array($method, ['efectivo','credito'])) {
+        $method = 'efectivo';
+    }
+
+    return (object) [
+        'id' => $pay->id,
+        'amount' => $pay->amount,
+        'type' => $method,
+        'created_at' => $pay->created_at,
+        'sender' => null,
+        'receiver' => null,
+        'user_id' => $pay->user_id,
+    ];
+});
 
     // Normalizar Transactions para vista (ya tienen tipo: 'transfer')
     $transfers = $transfers->map(function($tx) {
