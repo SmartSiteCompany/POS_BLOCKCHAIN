@@ -24,6 +24,33 @@ class JsonTransactionController extends Controller
         return view('pay.json', compact('transactions'));
     }
 
+    public function uploadJson(Request $request)
+{
+    $request->validate([
+        'json_file' => 'required|file|mimes:json',
+    ]);
+
+    $file = $request->file('json_file');
+    $jsonData = file_get_contents($file->getRealPath());
+    $transactions = json_decode($jsonData, true);
+
+    if (!is_array($transactions)) {
+        return redirect()->route('json.show')->with('error', 'El archivo JSON no es válido.');
+    }
+
+    // Leer las transacciones pendientes actuales
+    $path = storage_path('app/transactions/pending.json');
+    $pending = file_exists($path) ? json_decode(file_get_contents($path), true) : [];
+
+    // Agregar nuevas transacciones
+    $pending = array_merge($pending, $transactions);
+
+    file_put_contents($path, json_encode($pending, JSON_PRETTY_PRINT));
+
+    return redirect()->route('json.show')->with('success', 'Archivo JSON cargado. Transacciones pendientes agregadas.');
+}
+
+
     // Guardar transacción en JSON
     public function storeToJson(Request $request)
     {
@@ -36,24 +63,15 @@ class JsonTransactionController extends Controller
         $paymentMethod = $request->input('payment_method');
         $userId = $request->input('user_id');
 
-        // Validar existencia del usuario (si se proporciona)
         $user = $userId ? User::find($userId) : null;
         if ($userId !== null && !$user) {
             return redirect()->route('json.show')->with('error', 'El usuario con ID ' . $userId . ' no existe.');
         }
 
-        // Verificar crédito suficiente si es método Crédito
-        if ($paymentMethod === 'Crédito') {
-            if (!$user) {
-                return redirect()->route('json.show')->with('error', 'No se puede usar crédito sin un usuario válido.');
-            }
-
-            if ($user->balance < $amount) {
-                return redirect()->route('json.show')->with('error', 'Credito insuficiente. No se guardó la transacción.');
-            }
+        if ($paymentMethod === 'Crédito' && $user && $user->balance < $amount) {
+            return redirect()->route('json.show')->with('error', 'Crédito insuficiente. No se guardó la transacción.');
         }
 
-        // Guardar en JSON si pasa todas las validaciones
         $data = [
             'amount' => $amount,
             'user_id' => $userId,
@@ -75,7 +93,7 @@ class JsonTransactionController extends Controller
         return redirect()->route('json.show')->with('success', 'Transacción guardada en archivo JSON.');
     }
 
-    // Procesar las transacciones del JSON y guardarlas en BD
+    // Procesar las transacciones del JSON
     public function processJson()
     {
         $path = storage_path('app/transactions/pending.json');
@@ -91,30 +109,53 @@ class JsonTransactionController extends Controller
             return redirect()->route('json.show')->with('info', 'No hay transacciones pendientes para procesar.');
         }
 
-        // Buscar el usuario maestro (kind == 2)
         $master = User::where('kind', 2)->first();
 
+        $cashTransactions = [];
+        $creditTransactions = [];
+        $transferTransactions = [];
+
+        // Separar por tipo
         foreach ($transactions as $data) {
-            if (!isset($data['amount']) || !is_numeric($data['amount'])) {
-                continue;
-            }
-
-            $amount = $data['amount'];
-
-            // Verificar si es transferencia
             if (isset($data['category']) && $data['category'] === 'transfer') {
-                $senderId = $data['sender_id'] ?? null;
-                $receiverId = $data['receiver_id'] ?? null;
+                $transferTransactions[] = $data;
+            } else {
+                $method = $data['payment_method'] ?? null;
+                if ($method === 'Efectivo') $cashTransactions[] = $data;
+                elseif ($method === 'Crédito') $creditTransactions[] = $data;
+            }
+        }
 
-                $sender = $senderId ? User::find($senderId) : null;
-                $receiver = $receiverId ? User::find($receiverId) : null;
+        // Procesar en orden: efectivo → transferencias → crédito
+        $this->processTransactions($cashTransactions, $master);
+        $this->processTransactions($transferTransactions, $master, true);
+        $this->processTransactions($creditTransactions, $master);
 
-                if ($sender && $receiver) {
-                    if ($sender->balance < $amount) {
-                        continue; // saldo insuficiente, saltar esta transferencia
-                    }
+        // Limpiar JSON
+        file_put_contents($path, json_encode([], JSON_PRETTY_PRINT));
 
-                    // Ejecutar transferencia
+        return redirect()->route('json.show')->with('success', 'Transacciones procesadas exitosamente.');
+    }
+
+    public function showUploadForm()
+{
+    return view('pay.upload-json'); // Apunta a resources/views/json/upload.blade.php
+}
+
+
+    // Método privado para procesar transacciones
+    private function processTransactions(array $transactions, ?User $master, bool $isTransfer = false)
+    {
+        foreach ($transactions as $data) {
+            $amount = $data['amount'] ?? 0;
+            $userId = $data['user_id'] ?? null;
+            $user = $userId ? User::find($userId) : null;
+
+            if ($isTransfer) {
+                $sender = isset($data['sender_id']) ? User::find($data['sender_id']) : null;
+                $receiver = isset($data['receiver_id']) ? User::find($data['receiver_id']) : null;
+
+                if ($sender && $receiver && $sender->balance >= $amount) {
                     $sender->decrement('balance', $amount);
                     $receiver->increment('balance', $amount);
 
@@ -125,45 +166,26 @@ class JsonTransactionController extends Controller
                         'type' => 'transfer',
                     ]);
                 }
-
-                continue; // ya procesamos esta transacción, saltar al siguiente
-            }
-
-            // No es transferencia, se espera payment_method
-            $paymentMethod = $data['payment_method'] ?? null;
-            $userId = $data['user_id'] ?? null;
-            $user = $userId ? User::find($userId) : null;
-
-            if (!$paymentMethod) {
-                // Si no tiene método de pago, saltar
                 continue;
             }
 
+            $paymentMethod = $data['payment_method'] ?? null;
+            if (!$paymentMethod) continue;
+
             if ($user) {
                 if ($paymentMethod === 'Crédito') {
-                    if ($user->balance < $amount) {
-                        continue; // saldo insuficiente
-                    }
+                    if ($user->balance < $amount) continue;
                     $user->decrement('balance', $amount);
-
-                    if ($master) {
-                        $master->increment('balance', $amount);
-                    }
+                    if ($master) $master->increment('balance', $amount);
 
                 } elseif ($paymentMethod === 'Efectivo') {
                     $cashback = $amount * 0.10;
                     $remaining = $amount - $cashback;
-
                     $user->increment('balance', $cashback);
-
-                    if ($master) {
-                        $master->increment('balance', $remaining);
-                    }
+                    if ($master) $master->increment('balance', $remaining);
                 }
             } else {
-                if ($master) {
-                    $master->increment('balance', $amount);
-                }
+                if ($master) $master->increment('balance', $amount);
             }
 
             Pay::create([
@@ -172,10 +194,5 @@ class JsonTransactionController extends Controller
                 'payment_method' => $paymentMethod,
             ]);
         }
-
-        // Limpiar archivo
-        file_put_contents($path, json_encode([], JSON_PRETTY_PRINT));
-
-        return redirect()->route('json.show')->with('success', 'Transacciones procesadas exitosamente.');
     }
 }

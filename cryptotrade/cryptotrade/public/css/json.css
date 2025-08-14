@@ -174,3 +174,18 @@ textarea.form-control:focus {
     vertical-align: middle;
     padding: 0.75rem;
 }
+
+/* Contenedor del título y botón */
+.title-with-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem; /* similar a mb-4 */
+}
+
+/* Ajustar tamaño del botón si quieres */
+.title-with-button .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.95rem;
+}
+

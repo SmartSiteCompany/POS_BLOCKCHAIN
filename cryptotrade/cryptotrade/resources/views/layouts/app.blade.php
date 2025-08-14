@@ -15,11 +15,14 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
         <!-- Botón hamburguesa -->
-        <button id="menu-toggle" class="toggle toggle2" aria-label="Toggle menu">
-            <div id="bar4" class="bars"></div>
-            <div id="bar5" class="bars"></div>
-            <div id="bar6" class="bars"></div>
-        </button>
+        <!-- Botón hamburguesa -->
+<button id="menu-toggle" class="toggle toggle2" aria-label="Toggle menu"
+    @if(auth()->user()->kind != 2) disabled style="cursor: not-allowed;" @endif>
+    <div id="bar4" class="bars"></div>
+    <div id="bar5" class="bars"></div>
+    <div id="bar6" class="bars"></div>
+</button>
+
 
         <a class="navbar-brand" href="/users">Cryptotrade</a>
 
@@ -81,14 +84,15 @@
     <!-- Script para toggle -->
     <script>
         const toggleBtn = document.getElementById('menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
+const sidebar = document.querySelector('.sidebar');
 
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('sidebar-open');
+if (toggleBtn && !toggleBtn.disabled) {
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-open');
+        toggleBtn.classList.toggle('active');
+    });
+}
 
-            // Animar las barras del botón (opcional)
-            toggleBtn.classList.toggle('active');
-        });
     </script>
     @stack('scripts')
 </body>

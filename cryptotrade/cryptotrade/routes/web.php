@@ -11,57 +11,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// CRUD usuarios
+// CRUD Usuarios
 Route::middleware('auth')->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::resource('users', UserController::class)->except(['show']);
 
+    // Transferencias
     Route::get('/transactions/transfer', [TransactionController::class, 'showTransferForm'])->name('transactions.transferForm');
-Route::post('/transactions/transfer', [TransactionController::class, 'transfer'])->name('transactions.transfer');
+    Route::post('/transactions/transfer', [TransactionController::class, 'transfer'])->name('transactions.transfer');
+
+    // Dashboard
+    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 });
 
+// Buscar usuario por ID
 Route::get('/buscar-usuario/{id}', function ($id) {
     $user = \App\Models\User::find($id);
-    if (!$user) {
-        return response()->json(['error' => 'Usuario no encontrado'], 404);
-    }
-    return response()->json($user);
+    return $user ? response()->json($user) : response()->json(['error' => 'Usuario no encontrado'], 404);
 });
 
-
-// Transacciones
-
+// Compras
 Route::get('/transactions/buy/{id}', [TransactionController::class, 'showBuyForm'])->name('transactions.buyForm');
 Route::post('/transactions/buy/{id}', [TransactionController::class, 'buy'])->name('transactions.buy');
 
-// Formulario de pago
+// Pagos
 Route::get('/pay', [PayController::class, 'create'])->name('pay.create');
 Route::post('/pay', [PayController::class, 'store'])->name('pay.store');
 
+// JSON transacciones
+Route::get('/json', [JsonTransactionController::class, 'showPendingTransactions'])->name('json.show');
+Route::post('/json/save', [JsonTransactionController::class, 'storeToJson'])->name('json.save');
+Route::post('/json/process', [JsonTransactionController::class, 'processJson'])->name('json.process');
 
-// Rutas de autenticación
+// Subida de JSON
+// Subida de JSON
+Route::get('/upload-json', [JsonTransactionController::class, 'showUploadForm'])->name('transactions.uploadForm');
+Route::post('/upload-json', [JsonTransactionController::class, 'uploadJson'])->name('transactions.upload');
+
+// Autenticación
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
-
-// Rutas protegidas (requieren login)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
-
-    // JSON transacciones
-Route::get('/json', [JsonTransactionController::class, 'showPendingTransactions'])->name('json.show');
-Route::post('/json/save', [JsonTransactionController::class, 'storeToJson'])->name('json.save');
-Route::post('/json/process', [JsonTransactionController::class, 'processJson'])->name('json.process');
-
-});
-
-
-
-

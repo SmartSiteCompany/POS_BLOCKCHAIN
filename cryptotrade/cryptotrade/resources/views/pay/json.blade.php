@@ -2,7 +2,13 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Gestión de Transacciones JSON</h1>
+    <div class="title-with-button">
+    <h1>Gestión de Transacciones JSON</h1>
+    <a href="{{ route('transactions.uploadForm') }}" class="btn btn-primary">
+        Cargar JSON
+    </a>
+</div>
+
 
     {{-- Mensajes --}}
     @if(session('success'))
