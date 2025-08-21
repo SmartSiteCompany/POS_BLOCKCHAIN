@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>POS Blockchain</title>
+    <title>Data XPOS</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/tabla_users.css') }}" />
@@ -16,28 +16,22 @@
 
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <!-- Botón hamburguesa -->
-        <!-- Botón hamburguesa -->
-<button id="menu-toggle" class="toggle toggle2" aria-label="Toggle menu"
-    @if(auth()->user()->kind != 2) disabled style="cursor: not-allowed;" @endif>
-    <div id="bar4" class="bars"></div>
-    <div id="bar5" class="bars"></div>
-    <div id="bar6" class="bars"></div>
-</button>
+<nav class="navbar navbar-dark">
+    <button id="menu-toggle" class="toggle2" aria-label="Toggle menu">
+        <div id="bar4" class="bars"></div>
+        <div id="bar5" class="bars"></div>
+        <div id="bar6" class="bars"></div>
+    </button>
 
+    <a class="navbar-brand" href="/users">Data XPOS</a>
 
-        <a class="navbar-brand" href="/users">Cryptotrade</a>
-
-        <div class="ms-auto">
-            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                @csrf
-                <button class="btn btn-outline-light">Cerrar sesión</button>
-            </form>
-        </div>
-    </nav>
-
+    <div class="ms-auto navbar-actions">
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn-flip" data-front="Cerrar sesión" data-back="¡Adiós!"></button>
+        </form>
+    </div>
+</nav>
     <!-- Sidebar -->
     <div class="sidebar">
         <ul>

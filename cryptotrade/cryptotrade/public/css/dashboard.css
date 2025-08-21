@@ -4,7 +4,7 @@
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 8px 24px rgba(70, 50, 130, 0.08);
-    margin-top: 2rem;
+    margin-top: 80px;
 }
 
 
@@ -87,12 +87,12 @@
 
 
 
-.btn10:hover,.btn11:hover {
+.btn10:hover,.btn11:hover, .btn_json:hover {
     border: 1px solid #4e2182;
     color: #fff!important;
 }
 
-.btn10::before.btn11:before  {
+.btn10::before.btn11:before.btn_json:before  {
     content: '';
     width: 0%;
     height: 100%;
@@ -113,7 +113,7 @@
     box-shadow: 2px 0px 14px rgba(0, 0, 0, .6);
 }
 
-.btn10::after, .btn11::after  {
+.btn10::after, .btn11::after, .btn_json::after  {
     content: '';
     width: 0%;
     height: 100%;
@@ -134,13 +134,13 @@
     box-shadow: 2px 0px 14px rgba(0, 0, 0, .6);
 }
 
-.btn10:hover::before,.btn11:hover::before, 
-.btn10:hover::after,.btn11:hover::after {
+.btn10:hover::before,.btn11:hover::before, .btn_json:hover::before 
+.btn10:hover::after,.btn11:hover::after, .btn_json:hover::after {
     opacity: 1;
     width: 116%;
 }
 
-.btn10:hover::after,.btn11:hover::after {
+.btn10:hover::after,.btn11:hover::after, .btn_json:hover::after {
     opacity: 1;
     width: 120%;
 }

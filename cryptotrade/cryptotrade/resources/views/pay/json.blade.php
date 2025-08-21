@@ -53,28 +53,31 @@
                         <input type="number" name="user_id" id="user_id" placeholder="ID de Usuario (opcional)" class="input_field">
 
                         <select name="payment_method" id="payment_method" required class="input_field">
-                            <option value="">Selecciona un método</option>
                             <option value="Efectivo">Efectivo</option>
                             <option value="Crédito">Crédito</option>
                         </select>
 
-                        <button type="submit">Guardar en JSON</button>
+                        <button class="btn_json" type="submit">Guardar en JSON</button>
                     </form>
                 </div>
                 <hr>
 
                 <!-- Resumen de transacción (opcional, puede actualizarse con JS) -->
                 <div class="payments">
-                    <span>RESUMEN</span>
-                    <div class="details">
-                        <span>Subtotal:</span>
-                        <span>$0.00</span>
-                        <span>Transferencia:</span>
-                        <span>$0.00</span>
-                        <span>Saldo Final:</span>
-                        <span>$0.00</span>
-                    </div>
-                </div>
+    <span>RESUMEN</span>
+    <div class="details">
+    <span>Subtotal:</span>
+    <span id="subtotal">$0.00</span>
+
+    <span id="cashback-label">Cashback:</span>
+    <span id="cashback">$0.00</span>
+
+    <span>Saldo Final:</span>
+    <span id="final-balance">$0.00</span>
+</div>
+
+</div>
+
             </div>
         </div>
     </div>
@@ -124,7 +127,7 @@
         <span>Transacciones Pendientes</span>
         <form action="{{ route('json.process') }}" method="POST">
             @csrf
-            <button type="submit" class="btn-process">Procesar Transacciones</button>
+            <button type="submit" class="btn-upload">Procesar Transacciones</button>
         </form>
     </div>
 
@@ -178,11 +181,6 @@
     </div>
 </div>
 
-
-    {{-- Botón para procesar transacciones --}}
-    
-
-   
-
 <script src="{{ asset('js/alerts.js') }}"></script>
+<script src="{{ asset('js/resumen.js') }}"></script>
 @endsection

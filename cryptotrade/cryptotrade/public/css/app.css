@@ -36,6 +36,13 @@ body {
     color: #212529;
 }
 
+@font-face {
+  font-family: 'MuseoModerno';
+  src: url('/fonts/MuseoModerno-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Clases auxiliares */
 .d-inline {
     display: inline;
